@@ -11,8 +11,18 @@ import messages from './messages';
 
 export default function HomePage() {
   return (
-    <h1>
-      <FormattedMessage {...messages.header} />
+    <h1
+      style={{
+        paddingLeft: '300px',
+        paddingBottom: '300px',
+        fontFamily: "'Lobster', cursive",
+        backgroundColor: 'white',
+        color: 'red',
+        fontSize: '250px',
+      }}
+    >
+      ffl
+      {/* <FormattedMessage {...messages.header} /> */}
     </h1>
   );
 }

@@ -1,0 +1,36 @@
+type Query {
+  standings(year: Int!, week: Int!): StandingsRecord!
+}
+
+type StandingsRecord {
+  seasonWeek: SeasonWeek!
+  records: [TeamRecord!]!
+}
+
+type SeasonWeek {
+  year: Int!
+  week: Int!
+}
+
+type TeamRecord {
+  pointsAgainst: Float!
+  pointsFor: Float!
+  rank: Int
+  record: SeasonRecord!
+  team: Team!
+}
+
+type SeasonRecord {
+  wins: Int!
+  losses: Int!
+  ties: Int!
+}
+
+type Team {
+  name: String!
+  owner: User!
+}
+
+type User {
+  name: String!
+}

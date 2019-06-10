@@ -105,6 +105,11 @@ module.exports = options => ({
           },
         },
       },
+      {
+        test: /\.(graphql|gql)$/,
+        exclude: /node_modules/,
+        loader: 'graphql-tag/loader',
+      },
     ],
   },
   plugins: options.plugins.concat([
