@@ -7,7 +7,7 @@ function standingsBySeasonWeek({ year, week }) {
     return standingsData;
   }
 
-  
+
 }
 
 export { standingsBySeasonWeek };
