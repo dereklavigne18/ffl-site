@@ -9,6 +9,6 @@ make
 # Add Redis to the machine's path
 sudo make install
 
-# Setup firewall rule to protect Redis
+# Setup firewall rule to protect Redis - should probably put this in its own script
 
 # Add authentication
