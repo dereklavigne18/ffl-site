@@ -16,6 +16,8 @@ const StyledCard = styled.div`
 
   margin: 2px 0px;
   padding: 10px;
+  
+  overflow: auto;
 
   & h3 {
     margin-top 5px;

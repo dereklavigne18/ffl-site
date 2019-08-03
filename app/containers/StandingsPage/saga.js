@@ -25,7 +25,20 @@ export function* getStandings() {
   const variables = { year, week };
 
   try {
-    const standings = yield call(graphql, standingsQuery, variables);
+    const standingsResponse = yield call(graphql, standingsQuery, variables);
+
+    const standings = standingsResponse.data.standings.records.map(
+      standingRecord => {
+        const { team } = standingRecord;
+        const { record } = standingRecord;
+        return {
+          ...standingRecord,
+          name: team.name,
+          ownerName: null, // team.owner.name, // TODO This should be required
+          record: `${record.wins}-${record.losses}-${record.ties}`,
+        };
+      },
+    );
     yield put(standingsLoaded({ standings }));
   } catch (error) {
     yield put(standingsLoadedError({ error }));

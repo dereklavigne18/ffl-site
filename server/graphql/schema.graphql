@@ -28,7 +28,7 @@ type SeasonRecord {
 
 type Team {
   name: String!
-  owner: User!
+  owner: User # TODO Make this non-nullable
 }
 
 type User {

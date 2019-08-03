@@ -28,7 +28,6 @@ const StyledTable = styled.table`
   }
 
   & th {
-    border-left: 1px solid black;
     padding: 5px 10px;
   }
 
@@ -39,14 +38,14 @@ const StyledTable = styled.table`
 
 function Table({ columns, rows }) {
   let headerCells = null;
-  if (columns) {
+  if (columns && rows.length > 0) {
     headerCells = columns
       .filter(column => column.shouldShowHeader)
-      .map(column => <TH>{column.text}</TH>);
+      .map(column => <TH key={column.text}>{column.text}</TH>);
   }
 
   const rowElements = rows.map((row, index) => (
-    /* eslint-disable-next-line no-array-index-key */
+    /* eslint-disable-next-line react/no-array-index-key */
     <TR data={row} columns={columns} key={index} />
   ));
 

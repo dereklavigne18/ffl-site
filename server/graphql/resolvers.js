@@ -1,13 +1,13 @@
-import { standingsBySeasonWeek } from '../services/standings';
+const standings = require('../services/standings');
 
-export default {
+module.exports = {
   Query: {
-    standings: (obj, args) => ({
+    standings: async (obj, args) => ({
       seasonWeek: {
         year: args.year,
         week: args.week,
       },
-      records: standingsBySeasonWeek({ ...args }),
+      records: await standings.standingsBySeasonWeek({ ...args }),
     }),
   },
 };

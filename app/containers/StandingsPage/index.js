@@ -6,7 +6,7 @@
 
 import React, { memo } from 'react';
 import PropTypes from 'prop-types';
-// import styled from 'styled-components';
+import styled from 'styled-components';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
@@ -25,23 +25,28 @@ import {
   makeSelectWeek,
   makeSelectYear,
   makeSelectStandings,
-  makeSelectIsLoading,
-  makeSelectLoadingError,
+  // makeSelectIsLoading,
+  // makeSelectLoadingError,
 } from 'containers/StandingsPage/selectors';
 
 import Card from 'components/Card/Loadable';
+import { FloatLeft } from 'components/Floaters';
 import Table from 'components/Table/Loadable';
 import WeekSelector from './WeekSelector';
 import YearSelector from './YearSelector';
+
+const SelectorContainer = styled(FloatLeft)`
+  margin-right: 15px;
+`;
 
 export function StandingsPage({
   year,
   week,
   standings,
-  isLoading,
-  loadingError,
   onChangeYear,
   onChangeWeek,
+  // isLoading,
+  // loadingError,
 }) {
   useInjectReducer({ key: 'standingsPage', reducer });
   useInjectSaga({ key: 'standingsPage', saga });
@@ -49,11 +54,13 @@ export function StandingsPage({
   return (
     <div>
       <Card title="Timeframe">
-        <YearSelector defaultValue={year} onChange={onChangeYear} />
-        <WeekSelector defaultValue={week} onChange={onChangeWeek} />
+        <SelectorContainer>
+          <YearSelector defaultValue={year} onChange={onChangeYear} />
+        </SelectorContainer>
+        <SelectorContainer>
+          <WeekSelector defaultValue={week} onChange={onChangeWeek} />
+        </SelectorContainer>
       </Card>
-      <div>Week: {week}</div>
-      <div>Year: {year}</div>
       <Table rows={standings} columns={columns} />
     </div>
   );
@@ -63,8 +70,8 @@ StandingsPage.propTypes = {
   year: PropTypes.number.isRequired,
   week: PropTypes.number.isRequired,
   standings: PropTypes.array,
-  isLoading: PropTypes.bool.isRequired,
-  loadingError: PropTypes.string,
+  // isLoading: PropTypes.bool,
+  // loadingError: PropTypes.string,
   onChangeYear: PropTypes.func.isRequired,
   onChangeWeek: PropTypes.func.isRequired,
 };
@@ -73,8 +80,8 @@ const mapStateToProps = createStructuredSelector({
   year: makeSelectYear(),
   week: makeSelectWeek(),
   standings: makeSelectStandings(),
-  isLoading: makeSelectIsLoading(),
-  loadingError: makeSelectLoadingError(),
+  // isLoading: makeSelectIsLoading(),
+  // loadingError: makeSelectLoadingError(),
 });
 
 function onChangeYearCreator(dispatch) {
@@ -109,13 +116,40 @@ export default compose(
 )(StandingsPage);
 
 const columns = [
-  { key: 'rank', shouldShowHeader: false, shouldCenterContent: true },
-  { key: 'name', shouldShowHeader: false, shouldCenterContent: false },
-  { key: 'record', shouldShowHeader: false, shouldCenterContent: true },
-  { key: 'pointsFor', shouldShowHeader: false, shouldCenterContent: true },
+  {
+    key: 'rank',
+    text: 'Rank',
+    shouldShowHeader: true,
+    shouldCenterContent: true,
+  },
+  {
+    key: 'name',
+    text: 'Team',
+    shouldShowHeader: true,
+    shouldCenterContent: false,
+  },
+  {
+    key: 'ownerName',
+    text: 'Owner',
+    shouldShowHeader: true,
+    shouldCenterContent: false,
+  },
+  {
+    key: 'record',
+    text: 'Record',
+    shouldShowHeader: true,
+    shouldCenterContent: true,
+  },
+  {
+    key: 'pointsFor',
+    text: 'Points For',
+    shouldShowHeader: true,
+    shouldCenterContent: true,
+  },
   {
     key: 'pointsAgainst',
-    shouldShowHeader: false,
+    text: 'Points Against',
+    shouldShowHeader: true,
     shouldCenterContent: true,
   },
 ];
