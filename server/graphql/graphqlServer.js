@@ -1,10 +1,14 @@
-import { ApolloServer } from 'apollo-server-express';
-import fs from 'fs';
+const apolloServer = require('apollo-server-express');
+const fs = require('fs');
+const path = require('path');
 
-import resolvers from './resolvers';
+const resolvers = require('./resolvers');
 
-const typeDefs = fs.readFileSync('schema.graphql');
+const typeDefs = fs.readFileSync(
+  path.resolve(__dirname, 'schema.graphql'),
+  'utf-8',
+);
 
-const graphqlServer = new ApolloServer({ typeDefs, resolvers });
+const graphqlServer = new apolloServer.ApolloServer({ typeDefs, resolvers });
 
-export default graphqlServer;
+module.exports = graphqlServer;

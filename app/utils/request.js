@@ -44,8 +44,6 @@ function checkStatus(response) {
  * @return {object}           The response data
  */
 export function request(url, options) {
-  console.log(url);
-  console.log(options);
   return fetch(url, options)
     .then(checkStatus)
     .then(parseJSON);
@@ -66,10 +64,10 @@ export function graphql(query, variables = null) {
       Accept: 'application/json',
       'Content-Type': 'application/json',
     },
-    body: {
-      query: query.loc.source,
+    body: JSON.stringify({
+      query: query.loc.source.body,
       variables,
-    },
+    }),
   };
 
   return request(GRAPHQL_URL, options);
