@@ -34,7 +34,7 @@ export function* getStandings() {
         return {
           ...standingRecord,
           name: team.name,
-          ownerName: null, // team.owner.name, // TODO This should be required
+          ownerName: team.owner.name,
           record: `${record.wins}-${record.losses}-${record.ties}`,
         };
       },

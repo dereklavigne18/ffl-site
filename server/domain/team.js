@@ -34,6 +34,12 @@ class Team {
    * @type number
    */
   pointsAgainst;
+
+  /**
+   * The user that owns and manages the team
+   * @type User
+   */
+  owner;
 }
 
 module.exports = {

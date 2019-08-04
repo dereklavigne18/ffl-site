@@ -1,4 +1,5 @@
 module.exports = {
+  ESPN_BASE_URL: 'http://fantasy.espn.com/apis/v3/games/ffl/seasons/',
   ESPN_COOKIE_S2:
     'AEAWxrc%2FUjuy12f4uyEKbPPK6RJSy1uFV43Ts5TpVxXgIKsM1To134GVw3Vgeo5iOwM%2BmzPllZmoc0LzHvzvxHFo4uDIqJ5F5iDCwCna%2FVICXv6VOcyNHmJnkq2e64vZWfMcnD2aKKM85sLt67s9MSdgy%2FLwkQY8u7qvoMn7zu6ucsE6UlZFT5BNHGbNeLQxNPcuiuYzGOCaRrS%2FCmR7II864nO%2BmYJ48m1x6oGKtpxmlin2Z3FjyoDNqlVWXisfNvXawosIdzVxxw74slvEj%2BEo',
   ESPN_COOKIE_SWID: '{EB82DFDF-CE30-49E0-9492-993425B85718}',

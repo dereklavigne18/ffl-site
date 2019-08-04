@@ -44,7 +44,9 @@ function transformTeamToTeamRecord(team, rank) {
     },
     team: {
       name: team.name,
-      owner: null,
+      owner: {
+        name: team.owner.name,
+      },
     },
   };
 }
