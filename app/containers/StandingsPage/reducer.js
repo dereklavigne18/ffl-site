@@ -13,7 +13,7 @@ import {
 } from './constants';
 
 export const initialState = {
-  year: 2017,
+  year: 2018,
   week: 1,
   standings: [],
   isLoading: false,

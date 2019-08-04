@@ -14,22 +14,10 @@ const MAX = 18;
 const STEP = 1;
 
 function WeekSelector({ onChange, defaultValue }) {
-  // return (
-  //   <div>
-  //     <RangeSlider
-  //       min={MIN}
-  //       max={MAX}
-  //       defaultValue={defaultValue}
-  //       step={STEP}
-  //       widthPerStep={30}
-  //       onChange={onChange}
-  //     />
-  //   </div>
-  // );
   const options = [];
   for (let value = MIN; value <= MAX; value += STEP) {
     options.push(
-      <Option key={value} value={value} isSelected={value === defaultValue}>
+      <Option key={value} value={value}>
         {value.toString()}
       </Option>,
     );
@@ -37,7 +25,7 @@ function WeekSelector({ onChange, defaultValue }) {
 
   return (
     <div>
-      <Select label="Week" onChange={onChange}>
+      <Select label="Week" defaultValue={defaultValue} onChange={onChange}>
         {options}
       </Select>
     </div>

@@ -13,19 +13,6 @@ const MAX = 2019; // Current year
 const STEP = 1;
 
 function YearSelector({ onChange, defaultValue }) {
-  // return (
-  //   <div>
-  //     <RangeSlider
-  //       min={MIN}
-  //       max={MAX}
-  //       defaultValue={defaultValue}
-  //       step={STEP}
-  //       onChange={onChange}
-  //       widthPerStep={80}
-  //     />
-  //   </div>
-  // );
-
   const options = [];
   for (let value = MIN; value <= MAX; value += STEP) {
     options.push(

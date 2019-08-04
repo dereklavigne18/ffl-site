@@ -4,7 +4,7 @@
  *
  */
 
-import React, { memo } from 'react';
+import React, { memo, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { connect } from 'react-redux';
@@ -25,13 +25,14 @@ import {
   makeSelectWeek,
   makeSelectYear,
   makeSelectStandings,
-  // makeSelectIsLoading,
+  makeSelectIsLoading,
   // makeSelectLoadingError,
 } from 'containers/StandingsPage/selectors';
 
 import Card from 'components/Card/Loadable';
 import { FloatLeft } from 'components/Floaters';
 import Table from 'components/Table/Loadable';
+import Spinner from 'components/Spinner/Loadable';
 import WeekSelector from './WeekSelector';
 import YearSelector from './YearSelector';
 
@@ -45,11 +46,21 @@ export function StandingsPage({
   standings,
   onChangeYear,
   onChangeWeek,
-  // isLoading,
+  isLoading,
   // loadingError,
 }) {
   useInjectReducer({ key: 'standingsPage', reducer });
   useInjectSaga({ key: 'standingsPage', saga });
+
+  // On initial render, set the current year, so we load the year's data
+  useEffect(() => {
+    if (standings.length === 0) {
+      const evt = {
+        target: { value: 2018 },
+      };
+      onChangeYear(evt);
+    }
+  }, []);
 
   return (
     <div>
@@ -61,7 +72,7 @@ export function StandingsPage({
           <WeekSelector defaultValue={week} onChange={onChangeWeek} />
         </SelectorContainer>
       </Card>
-      <Table rows={standings} columns={columns} />
+      {isLoading ? <Spinner /> : <Table rows={standings} columns={columns} />}
     </div>
   );
 }
@@ -70,7 +81,7 @@ StandingsPage.propTypes = {
   year: PropTypes.number.isRequired,
   week: PropTypes.number.isRequired,
   standings: PropTypes.array,
-  // isLoading: PropTypes.bool,
+  isLoading: PropTypes.bool,
   // loadingError: PropTypes.string,
   onChangeYear: PropTypes.func.isRequired,
   onChangeWeek: PropTypes.func.isRequired,
@@ -80,7 +91,7 @@ const mapStateToProps = createStructuredSelector({
   year: makeSelectYear(),
   week: makeSelectWeek(),
   standings: makeSelectStandings(),
-  // isLoading: makeSelectIsLoading(),
+  isLoading: makeSelectIsLoading(),
   // loadingError: makeSelectLoadingError(),
 });
 
