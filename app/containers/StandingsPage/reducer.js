@@ -70,7 +70,7 @@ function loadingError(state, action) {
     case STANDINGS_LOADED:
       return null;
     case STANDINGS_LOADED_ERROR:
-      return action.message;
+      return action.error;
     default:
       return state;
   }

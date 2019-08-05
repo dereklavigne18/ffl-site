@@ -26,6 +26,10 @@ export function* getStandings() {
 
   try {
     const standingsResponse = yield call(graphql, standingsQuery, variables);
+    if (!standingsResponse.data) {
+      yield put(standingsLoadedError({ error: 'No records returned' }));
+      return;
+    }
 
     const standings = standingsResponse.data.standings.records.map(
       standingRecord => {

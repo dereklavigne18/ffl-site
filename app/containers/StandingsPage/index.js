@@ -26,12 +26,13 @@ import {
   makeSelectYear,
   makeSelectStandings,
   makeSelectIsLoading,
-  // makeSelectLoadingError,
+  makeSelectLoadingError,
 } from 'containers/StandingsPage/selectors';
 
 import Card from 'components/Card/Loadable';
 import { FloatLeft } from 'components/Floaters';
 import Table from 'components/Table/Loadable';
+import Oops from 'components/Oops/Loadable';
 import Spinner from 'components/Spinner/Loadable';
 import WeekSelector from './WeekSelector';
 import YearSelector from './YearSelector';
@@ -47,7 +48,7 @@ export function StandingsPage({
   onChangeYear,
   onChangeWeek,
   isLoading,
-  // loadingError,
+  loadingError,
 }) {
   useInjectReducer({ key: 'standingsPage', reducer });
   useInjectSaga({ key: 'standingsPage', saga });
@@ -62,6 +63,13 @@ export function StandingsPage({
     }
   }, []);
 
+  let content = <Table rows={standings} columns={columns} />;
+  if (isLoading) {
+    content = <Spinner />;
+  } else if (loadingError) {
+    content = <Oops />;
+  }
+
   return (
     <div>
       <Card title="Timeframe">
@@ -72,7 +80,7 @@ export function StandingsPage({
           <WeekSelector defaultValue={week} onChange={onChangeWeek} />
         </SelectorContainer>
       </Card>
-      {isLoading ? <Spinner /> : <Table rows={standings} columns={columns} />}
+      {content}
     </div>
   );
 }
@@ -82,7 +90,7 @@ StandingsPage.propTypes = {
   week: PropTypes.number.isRequired,
   standings: PropTypes.array,
   isLoading: PropTypes.bool,
-  // loadingError: PropTypes.string,
+  loadingError: PropTypes.string,
   onChangeYear: PropTypes.func.isRequired,
   onChangeWeek: PropTypes.func.isRequired,
 };
@@ -92,7 +100,7 @@ const mapStateToProps = createStructuredSelector({
   week: makeSelectWeek(),
   standings: makeSelectStandings(),
   isLoading: makeSelectIsLoading(),
-  // loadingError: makeSelectLoadingError(),
+  loadingError: makeSelectLoadingError(),
 });
 
 function onChangeYearCreator(dispatch) {

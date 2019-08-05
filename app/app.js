@@ -25,6 +25,12 @@ import LanguageProvider from 'containers/LanguageProvider';
 // Load the favicon and the .htaccess file
 /* eslint-disable import/no-unresolved, import/extensions */
 import '!file-loader?name=[name].[ext]!./images/favicon.ico';
+import '!file-loader?name=[name].[ext]!./images/apple-touch-icon.png';
+import '!file-loader?name=[name].[ext]!./images/favicon-32x32.png';
+import '!file-loader?name=[name].[ext]!./images/favicon-16x16.png';
+import '!file-loader?name=[name].[ext]!./images/android-chrome-192x192.png';
+import '!file-loader?name=[name].[ext]!./images/safari-pinned-tab.svg';
+import '!file-loader?name=[name].[ext]!./images/site.webmanifest';
 import 'file-loader?name=.htaccess!./.htaccess';
 /* eslint-enable import/no-unresolved, import/extensions */
 

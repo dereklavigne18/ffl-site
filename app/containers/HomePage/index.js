@@ -6,8 +6,6 @@
  */
 
 import React from 'react';
-import { FormattedMessage } from 'react-intl';
-import messages from './messages';
 
 export default function HomePage() {
   return (
@@ -22,7 +20,6 @@ export default function HomePage() {
       }}
     >
       ffl
-      {/* <FormattedMessage {...messages.header} /> */}
     </h1>
   );
 }
