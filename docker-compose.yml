@@ -1,0 +1,15 @@
+---
+
+version: '3.7'
+
+services:
+  ffl:
+    build:
+      context: .
+      dockerfile: docker/ffl.dockerfile
+    links:
+      - redis
+  redis:
+    build:
+      context: docker/redis
+      dockerfile: redis.dockerfile

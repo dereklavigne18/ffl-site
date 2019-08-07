@@ -24,7 +24,7 @@ const HomeNavItem = styled(NavItem)`
   }
 `;
 
-const Nav = ({ routes }) => {
+const Nav = ({ routes, onLoginClick }) => {
   let navItems = [];
   if (routes) {
     navItems = routes.reverse().map(route => (
@@ -33,6 +33,15 @@ const Nav = ({ routes }) => {
       </NavItem>
     ));
   }
+
+  // TODO gotta fix this button
+  navItems.push(
+    <NavItem key="login">
+      <button type="button" onClick={onLoginClick}>
+        Log In
+      </button>
+    </NavItem>,
+  );
 
   navItems.unshift(
     <HomeNavItem key="home">
@@ -45,6 +54,7 @@ const Nav = ({ routes }) => {
 
 Nav.propTypes = {
   routes: PropTypes.array.isRequired,
+  onLoginClick: PropTypes.func.isRequired,
 };
 
 export default Nav;

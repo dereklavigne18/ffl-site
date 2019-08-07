@@ -10,12 +10,15 @@ import styled from 'styled-components';
 
 const StyledCard = styled.div`
   width: 100%;
+  height: 100%;
   background-color: black;
   border: 2px solid white;
   border-radius: 5px;
 
   margin: 2px 0px;
-  padding: 10px;
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-bottom: 10px;
   
   overflow: auto;
 
@@ -27,15 +30,15 @@ const StyledCard = styled.div`
 function Card({ title, ...props }) {
   return (
     <StyledCard>
-      <h3>{title}</h3>
+      {title && <h3>{title}</h3>}
       {props.children}
     </StyledCard>
   );
 }
 
 Card.propTypes = {
-  title: PropTypes.string.isRequired,
-  children: PropTypes.node,
+  title: PropTypes.string,
+  children: PropTypes.node.isRequired,
 };
 
 export default memo(Card);

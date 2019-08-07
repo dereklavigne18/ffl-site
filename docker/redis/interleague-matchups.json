@@ -1,0 +1,512 @@
+{
+  "2016": {
+    "3": [
+      {
+        "yahooTeamId": 1,
+        "espnTeamId": 9
+      },
+      {
+        "yahooTeamId": 3,
+        "espnTeamId": 2
+      },
+      {
+        "yahooTeamId": 10,
+        "espnTeamId": 5
+      },
+      {
+        "yahooTeamId": 4,
+        "espnTeamId": 10
+      },
+      {
+        "yahooTeamId": 7,
+        "espnTeamId": 8
+      },
+      {
+        "yahooTeamId": 2,
+        "espnTeamId": 4
+      },
+      {
+        "yahooTeamId": 8,
+        "espnTeamId": 1
+      },
+      {
+        "yahooTeamId": 9,
+        "espnTeamId": 3
+      },
+      {
+        "yahooTeamId": 6,
+        "espnTeamId": 6
+      },
+      {
+        "yahooTeamId": 5,
+        "espnTeamId": 7
+      }
+    ],
+    "6": [
+      {
+        "yahooTeamId": 1,
+        "espnTeamId": 2
+      },
+      {
+        "yahooTeamId": 3,
+        "espnTeamId": 9
+      },
+      {
+        "yahooTeamId": 10,
+        "espnTeamId": 10
+      },
+      {
+        "yahooTeamId": 4,
+        "espnTeamId": 5
+      },
+      {
+        "yahooTeamId": 7,
+        "espnTeamId": 4
+      },
+      {
+        "yahooTeamId": 2,
+        "espnTeamId": 8
+      },
+      {
+        "yahooTeamId": 8,
+        "espnTeamId": 3
+      },
+      {
+        "yahooTeamId": 9,
+        "espnTeamId": 1
+      },
+      {
+        "yahooTeamId": 6,
+        "espnTeamId": 7
+      },
+      {
+        "yahooTeamId": 5,
+        "espnTeamId": 6
+      }
+    ],
+    "9": [
+      {
+        "yahooTeamId": 1,
+        "espnTeamId": 10
+      },
+      {
+        "yahooTeamId": 3,
+        "espnTeamId": 5
+      },
+      {
+        "yahooTeamId": 10,
+        "espnTeamId": 4
+      },
+      {
+        "yahooTeamId": 4,
+        "espnTeamId": 8
+      },
+      {
+        "yahooTeamId": 7,
+        "espnTeamId": 3
+      },
+      {
+        "yahooTeamId": 2,
+        "espnTeamId": 1
+      },
+      {
+        "yahooTeamId": 8,
+        "espnTeamId": 7
+      },
+      {
+        "yahooTeamId": 9,
+        "espnTeamId": 6
+      },
+      {
+        "yahooTeamId": 6,
+        "espnTeamId": 2
+      },
+      {
+        "yahooTeamId": 5,
+        "espnTeamId": 9
+      }
+    ],
+    "12": [
+      {
+        "yahooTeamId": 1,
+        "espnTeamId": 10
+      },
+      {
+        "yahooTeamId": 3,
+        "espnTeamId": 5
+      },
+      {
+        "yahooTeamId": 10,
+        "espnTeamId": 4
+      },
+      {
+        "yahooTeamId": 4,
+        "espnTeamId": 8
+      },
+      {
+        "yahooTeamId": 7,
+        "espnTeamId": 3
+      },
+      {
+        "yahooTeamId": 2,
+        "espnTeamId": 1
+      },
+      {
+        "yahooTeamId": 8,
+        "espnTeamId": 7
+      },
+      {
+        "yahooTeamId": 9,
+        "espnTeamId": 6
+      },
+      {
+        "yahooTeamId": 6,
+        "espnTeamId": 2
+      },
+      {
+        "yahooTeamId": 5,
+        "espnTeamId": 9
+      }
+    ]
+  },
+  "2017": {
+    "3": [
+      {
+        "yahooTeamId": 2,
+        "espnTeamId": 5
+      },
+      {
+        "yahooTeamId": 4,
+        "espnTeamId": 10
+      },
+      {
+        "yahooTeamId": 5,
+        "espnTeamId": 1
+      },
+      {
+        "yahooTeamId": 9,
+        "espnTeamId": 3
+      },
+      {
+        "yahooTeamId": 10,
+        "espnTeamId": 8
+      },
+      {
+        "yahooTeamId": 3,
+        "espnTeamId": 7
+      },
+      {
+        "yahooTeamId": 7,
+        "espnTeamId": 2
+      },
+      {
+        "yahooTeamId": 1,
+        "espnTeamId": 4
+      },
+      {
+        "yahooTeamId": 8,
+        "espnTeamId": 6
+      },
+      {
+        "yahooTeamId": 6,
+        "espnTeamId": 9
+      }
+    ],
+    "6": [
+      {
+        "yahooTeamId": 2,
+        "espnTeamId": 10
+      },
+      {
+        "yahooTeamId": 4,
+        "espnTeamId": 5
+      },
+      {
+        "yahooTeamId": 5,
+        "espnTeamId": 3
+      },
+      {
+        "yahooTeamId": 9,
+        "espnTeamId": 1
+      },
+      {
+        "yahooTeamId": 10,
+        "espnTeamId": 7
+      },
+      {
+        "yahooTeamId": 3,
+        "espnTeamId": 8
+      },
+      {
+        "yahooTeamId": 7,
+        "espnTeamId": 4
+      },
+      {
+        "yahooTeamId": 1,
+        "espnTeamId": 2
+      },
+      {
+        "yahooTeamId": 8,
+        "espnTeamId": 9
+      },
+      {
+        "yahooTeamId": 6,
+        "espnTeamId": 6
+      }
+    ],
+    "9": [
+      {
+        "yahooTeamId": 2,
+        "espnTeamId": 1
+      },
+      {
+        "yahooTeamId": 4,
+        "espnTeamId": 3
+      },
+      {
+        "yahooTeamId": 5,
+        "espnTeamId": 8
+      },
+      {
+        "yahooTeamId": 9,
+        "espnTeamId": 7
+      },
+      {
+        "yahooTeamId": 10,
+        "espnTeamId": 2
+      },
+      {
+        "yahooTeamId": 3,
+        "espnTeamId": 4
+      },
+      {
+        "yahooTeamId": 7,
+        "espnTeamId": 6
+      },
+      {
+        "yahooTeamId": 1,
+        "espnTeamId": 9
+      },
+      {
+        "yahooTeamId": 8,
+        "espnTeamId": 5
+      },
+      {
+        "yahooTeamId": 6,
+        "espnTeamId": 10
+      }
+    ],
+    "12": [
+      {
+        "yahooTeamId": 2,
+        "espnTeamId": 3
+      },
+      {
+        "yahooTeamId": 4,
+        "espnTeamId": 1
+      },
+      {
+        "yahooTeamId": 5,
+        "espnTeamId": 7
+      },
+      {
+        "yahooTeamId": 9,
+        "espnTeamId": 8
+      },
+      {
+        "yahooTeamId": 10,
+        "espnTeamId": 4
+      },
+      {
+        "yahooTeamId": 3,
+        "espnTeamId": 2
+      },
+      {
+        "yahooTeamId": 7,
+        "espnTeamId": 9
+      },
+      {
+        "yahooTeamId": 1,
+        "espnTeamId": 6
+      },
+      {
+        "yahooTeamId": 8,
+        "espnTeamId": 10
+      },
+      {
+        "yahooTeamId": 6,
+        "espnTeamId": 5
+      }
+    ]
+  },
+  "2018": {
+    "3": [
+      {
+        "yahooTeamId": 4,
+        "espnTeamId": 6
+      },
+      {
+        "yahooTeamId": 5,
+        "espnTeamId": 10
+      },
+      {
+        "yahooTeamId": 9,
+        "espnTeamId": 4
+      },
+      {
+        "yahooTeamId": 3,
+        "espnTeamId": 5
+      },
+      {
+        "yahooTeamId": 2,
+        "espnTeamId": 7
+      },
+      {
+        "yahooTeamId": 8,
+        "espnTeamId": 2
+      },
+      {
+        "yahooTeamId": 10,
+        "espnTeamId": 9
+      },
+      {
+        "yahooTeamId": 6,
+        "espnTeamId": 8
+      },
+      {
+        "yahooTeamId": 7,
+        "espnTeamId": 3
+      },
+      {
+        "yahooTeamId": 1,
+        "espnTeamId": 1
+      }
+    ],
+    "6": [
+      {
+        "yahooTeamId": 4,
+        "espnTeamId": 10
+      },
+      {
+        "yahooTeamId": 5,
+        "espnTeamId": 6
+      },
+      {
+        "yahooTeamId": 9,
+        "espnTeamId": 5
+      },
+      {
+        "yahooTeamId": 3,
+        "espnTeamId": 4
+      },
+      {
+        "yahooTeamId": 2,
+        "espnTeamId": 2
+      },
+      {
+        "yahooTeamId": 8,
+        "espnTeamId": 7
+      },
+      {
+        "yahooTeamId": 10,
+        "espnTeamId": 8
+      },
+      {
+        "yahooTeamId": 6,
+        "espnTeamId": 9
+      },
+      {
+        "yahooTeamId": 7,
+        "espnTeamId": 1
+      },
+      {
+        "yahooTeamId": 1,
+        "espnTeamId": 3
+      }
+    ],
+    "9": [
+      {
+        "yahooTeamId": 4,
+        "espnTeamId": 4
+      },
+      {
+        "yahooTeamId": 5,
+        "espnTeamId": 5
+      },
+      {
+        "yahooTeamId": 9,
+        "espnTeamId": 7
+      },
+      {
+        "yahooTeamId": 3,
+        "espnTeamId": 2
+      },
+      {
+        "yahooTeamId": 2,
+        "espnTeamId": 9
+      },
+      {
+        "yahooTeamId": 8,
+        "espnTeamId": 8
+      },
+      {
+        "yahooTeamId": 10,
+        "espnTeamId": 3
+      },
+      {
+        "yahooTeamId": 6,
+        "espnTeamId": 1
+      },
+      {
+        "yahooTeamId": 7,
+        "espnTeamId": 6
+      },
+      {
+        "yahooTeamId": 1,
+        "espnTeamId": 10
+      }
+    ],
+    "12": [
+      {
+        "yahooTeamId": 4,
+        "espnTeamId": 5
+      },
+      {
+        "yahooTeamId": 5,
+        "espnTeamId": 4
+      },
+      {
+        "yahooTeamId": 9,
+        "espnTeamId": 2
+      },
+      {
+        "yahooTeamId": 3,
+        "espnTeamId": 7
+      },
+      {
+        "yahooTeamId": 2,
+        "espnTeamId": 8
+      },
+      {
+        "yahooTeamId": 8,
+        "espnTeamId": 9
+      },
+      {
+        "yahooTeamId": 10,
+        "espnTeamId": 1
+      },
+      {
+        "yahooTeamId": 6,
+        "espnTeamId": 3
+      },
+      {
+        "yahooTeamId": 7,
+        "espnTeamId": 10
+      },
+      {
+        "yahooTeamId": 1,
+        "espnTeamId": 6
+      }
+    ]
+  }
+}

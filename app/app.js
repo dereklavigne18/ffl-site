@@ -32,6 +32,12 @@ import '!file-loader?name=[name].[ext]!./images/android-chrome-192x192.png';
 import '!file-loader?name=[name].[ext]!./images/safari-pinned-tab.svg';
 import '!file-loader?name=[name].[ext]!./images/site.webmanifest';
 import 'file-loader?name=.htaccess!./.htaccess';
+
+import '!file-loader?name=[name].[ext]!./images/ffl-lineup.png';
+import '!file-loader?name=[name].[ext]!./images/mugshot-ciampi.jpg';
+import '!file-loader?name=[name].[ext]!./images/mugshot-tim.jpg';
+import '!file-loader?name=[name].[ext]!./images/mugshot-ros.jpg';
+import '!file-loader?name=[name].[ext]!./images/dress-daley-2015.jpg';
 /* eslint-enable import/no-unresolved, import/extensions */
 
 import configureStore from './configureStore';
