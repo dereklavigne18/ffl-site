@@ -12,9 +12,8 @@ const StyledModal = styled.div`
   display: block;
   position: fixed;
   z-index: 2;
-  padding-top: 100px;
   left: 0;
-  top: 0;
+  top: 30%;
   width: 100%;
   height: 100%;
   overflow: auto;
@@ -22,11 +21,35 @@ const StyledModal = styled.div`
   & .modal-content {
     margin: auto;
     padding-left: 5px;
+    padding-right: 5px;
     border: 1px solid #888;
-    width: 40%;
+    width: 30%;
     background-color: #1f2021;
     border: 2px solid red;
     border-radius: 5px;
+    overflow: scroll;
+
+    & .username-component {
+      margin: auto;
+      width: 50%;
+
+      & input {
+        width: 100%;
+      }
+
+      & .submit-login {
+        margin-top: 10px;
+        margin-bottom: 25px;
+        font-family: 'Open Sans';
+
+        & button {
+          background-color: red;
+          border-radius: 2px;
+          border-color: red;
+          color: white;
+        }
+      }
+    }
   }
 
   & .close {
@@ -52,7 +75,7 @@ function getCloseHandler({ setOpen, onLoginClose }) {
 
 function getChangeUsernameHandler({ setUsername }) {
   return evt => {
-    setUsername(evt.target.valueOf());
+    setUsername(evt.target.value);
   };
 }
 
@@ -82,11 +105,22 @@ export function LoginModal({ onLoginClose }) {
           >
             &times;
           </span>
-          <label htmlFor="username">Username</label>
-          <input type="text" value={username} onChange={handleChangeUsername} />
-          <button type="submit" onClick={handleClickSubmit}>
-            Log In
-          </button>
+          <br />
+          <div className="username-component">
+            <label htmlFor="username">Username</label>
+            <br />
+            <input
+              type="text"
+              value={username}
+              onChange={handleChangeUsername}
+            />
+            <br />
+            <div className="submit-login" align="right">
+              <button type="submit" onClick={handleClickSubmit}>
+                Log In
+              </button>
+            </div>
+          </div>
         </div>
       </StyledModal>
     );

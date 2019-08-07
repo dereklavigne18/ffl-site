@@ -34,12 +34,12 @@ const Nav = ({ routes, onLoginClick }) => {
     ));
   }
 
-  // TODO gotta fix this button
-  navItems.push(
+  navItems.unshift(
     <NavItem key="login">
-      <button type="button" onClick={onLoginClick}>
+      {/* eslint-disable-next-line jsx-a11y/anchor-is-valid,jsx-a11y/interactive-supports-focus */}
+      <a role="button" onClick={onLoginClick} onKeyUp={onLoginClick}>
         Log In
-      </button>
+      </a>
     </NavItem>,
   );
 
