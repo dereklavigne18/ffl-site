@@ -1,18 +1,9 @@
-// import produce from 'immer';
-import standingsPageReducer from '../reducer';
-// import { someAction } from '../actions';
+import standingsPageReducer, { initialState } from '../reducer';
 
 /* eslint-disable default-case, no-param-reassign */
 describe('standingsPageReducer', () => {
-  let state;
-  beforeEach(() => {
-    state = {
-      // default state params here
-    };
-  });
-
   it('returns the initial state', () => {
-    const expectedResult = state;
+    const expectedResult = initialState;
     expect(standingsPageReducer(undefined, {})).toEqual(expectedResult);
   });
 

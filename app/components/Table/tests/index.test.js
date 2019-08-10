@@ -15,12 +15,8 @@ import Table from '../index';
 describe('<Table />', () => {
   it('Expect to not log errors in console', () => {
     const spy = jest.spyOn(global.console, 'error');
-    render(<Table />);
+    render(<Table columns={columns} rows={rows} />);
     expect(spy).not.toHaveBeenCalled();
-  });
-
-  it('Expect to have additional unit tests specified', () => {
-    expect(true).toEqual(false);
   });
 
   /**
@@ -35,3 +31,19 @@ describe('<Table />', () => {
     expect(firstChild).toMatchSnapshot();
   });
 });
+
+const rows = [
+  {
+    text: 'hello',
+  },
+  {
+    text: 'world',
+  },
+];
+
+const columns = [
+  {
+    key: 'text',
+    text: 'Text',
+  },
+];

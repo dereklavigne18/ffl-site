@@ -6,10 +6,8 @@ services:
   ffl:
     build:
       context: .
-      dockerfile: docker/ffl.dockerfile
+      dockerfile: ffl.dockerfile
     links:
       - redis
   redis:
-    build:
-      context: docker/redis
-      dockerfile: redis.dockerfile
+    image: redis:5.0.5

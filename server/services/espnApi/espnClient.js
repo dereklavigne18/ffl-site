@@ -30,6 +30,14 @@ class Client {
 
     return this.get({ urlPath }).catch(logger.error);
   }
+
+  async getBoxscoresAtWeek({ season, week }) {
+    const pathBase = `${season}/segments/0/leagues/${this.leagueId}`;
+    const pathParams = `?view=mMatchup&view=mMatchupScore&scoringPeriodId=${week}`;
+    const urlPath = `${pathBase}${pathParams}`;
+
+    return this.get({ urlPath }).catch(logger.error);
+  }
 }
 
 function getEspnLeagueClient() {

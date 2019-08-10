@@ -1,0 +1,88 @@
+const { getEspnLeagueClient, getYahooLeagueClient } = require('./espnClient');
+const logger = require('../../logger');
+
+function constructTeamScore(teamScore) {
+  return {
+    teamId: teamScore.teamId,
+    points: teamScore.totalPoints,
+  };
+}
+
+function constructBoxscore(boxscore) {
+  return {
+    home: constructTeamScore(boxscore.home),
+    away: 'away' in boxscore ? constructTeamScore(boxscore.away) : null,
+  };
+}
+
+function constructBoxscores(schedule) {
+  return schedule.reduce((boxscores, score) => {
+    const scores =
+      score.matchupPeriodId in boxscores
+        ? boxscores[score.matchupPeriodId]
+        : [];
+    scores.push(constructBoxscore(score));
+
+    const clonedBoxscores = boxscores;
+    clonedBoxscores[score.matchupPeriodId] = scores;
+
+    return clonedBoxscores;
+  }, {});
+}
+
+function parseResponse(response) {
+  return {
+    boxscores: constructBoxscores(response.schedule),
+  };
+}
+
+async function fetchBoxscores({ client, season, week }) {
+  const response = await client
+    .getBoxscoresAtWeek({ season, week })
+    .catch(logger.error);
+  return parseResponse(await response.json()).boxscores;
+}
+
+// Both of the below function return data in the format:
+// {
+//   1: [
+//     {
+//       home: {
+//         teamId: 4,
+//         points: 101.7
+//       },
+//       away: { // Away is optional since by weeks won't include away teams
+//         teamId: 7,
+//         points: 98.3
+//       }
+//     }
+//   ],
+//   ...
+// }
+
+/**
+ * Gets all the boxscores for the espn league over the year provided
+ *
+ * @param season
+ * @param week
+ * @returns {Promise<*>}
+ */
+async function fetchEspnBoxscores({ season, week }) {
+  return fetchBoxscores({ client: getEspnLeagueClient(), season, week });
+}
+
+/**
+ * Gets all the boxscores for the yahoo league over the year provided
+ *
+ * @param season
+ * @param week
+ * @returns {Promise<*>}
+ */
+async function fetchYahooBoxscores({ season, week }) {
+  return fetchBoxscores({ client: getYahooLeagueClient(), season, week });
+}
+
+module.exports = {
+  fetchEspnBoxscores,
+  fetchYahooBoxscores,
+};

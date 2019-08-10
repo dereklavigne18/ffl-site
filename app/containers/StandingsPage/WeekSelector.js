@@ -5,7 +5,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-// import RangeSlider from 'components/RangeSlider/Loadable';
 import Select from '../../components/Select';
 import Option from '../../components/Select/Option';
 
