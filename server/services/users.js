@@ -2,8 +2,15 @@ function getUserById(id) {
   return users[id];
 }
 
+function getUserByUsername(username) {
+  return Object.keys(users)
+    .map(k => users[k])
+    .find(user => user.username === username);
+}
+
 module.exports = {
   getUserById,
+  getUserByUsername,
 };
 
 const users = {

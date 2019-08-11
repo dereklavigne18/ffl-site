@@ -23,6 +23,10 @@ const StyledHomePage = styled.div`
 
   & .history-title {
     padding-left: 15px;
+    font-family: 'Impact';
+    letter-spacing: 2.25px;
+    text-align: center;
+    font-size: 50px;
   }
 
   & .history-block {
@@ -165,7 +169,7 @@ export default function HomePage() {
         </div>
       </div>
       <div>
-        <h2 className="history-title">FFL Throughout the years...</h2>
+        <h2 className="history-title">FFL THROUGHOUT THE YEARS</h2>
         {historyComponents}
       </div>
     </StyledHomePage>

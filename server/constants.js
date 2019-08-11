@@ -6,4 +6,8 @@ module.exports = {
 
   ESPN_LEAGUE_ID: 1363114,
   YAHOO_LEAGUE_ID: 1372219,
+
+  HTTP_CODE_OK: 200,
+  HTTP_CODE_UNAUTHORIZED: 401,
+  SITE_DOMAIN: 'localhost',
 };

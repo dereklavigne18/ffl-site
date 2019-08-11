@@ -1,12 +1,29 @@
 /**
  *
- * LoginModa
+ * LoginModal
  *
  */
 
-import React, { memo, useState } from 'react';
+import React, { memo } from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
+
+import { createStructuredSelector } from 'reselect';
+import { connect } from 'react-redux';
+import { compose } from 'redux';
+
+import { useInjectReducer } from 'utils/injectReducer';
+
+import reducer from 'containers/LoginModal/reducer';
+import saga from 'containers/LoginModal/saga';
+import {
+  makeSelectUsername,
+  makeSelectIsLoading,
+  makeSelectHasLoginError,
+} from 'containers/LoginModal/selectors';
+import { changeUsername, login } from 'containers/LoginModal/actions';
+import { closeLoginModal } from 'containers/App/actions';
+import { useInjectSaga } from '../../utils/injectSaga';
 
 const StyledModal = styled.div`
   display: block;
@@ -66,71 +83,119 @@ const StyledModal = styled.div`
   }
 `;
 
-function getCloseHandler({ setOpen, onLoginClose }) {
-  return () => {
-    setOpen(false);
-    onLoginClose();
-  };
-}
+const Icon = styled.i`
+  color: red;
+  float: left;
+`;
 
-function getChangeUsernameHandler({ setUsername }) {
-  return evt => {
-    setUsername(evt.target.value);
-  };
-}
+export function LoginModal({
+  username,
+  isLoading,
+  hasLoginError,
+  onCloseLoginModal,
+  onChangeUsername,
+  onClickLogin,
+}) {
+  useInjectReducer({ key: 'loginModal', reducer });
+  useInjectSaga({ key: 'loginModal', saga });
 
-function getClickSubmitHandler({ handleClose }) {
-  return () => {
-    handleClose();
-  };
-}
-
-export function LoginModal({ onLoginClose }) {
-  const [open, setOpen] = useState(true);
-  const [username, setUsername] = useState('');
-  const handleClose = getCloseHandler({ setOpen, onLoginClose });
-  const handleChangeUsername = getChangeUsernameHandler({ setUsername });
-  const handleClickSubmit = getClickSubmitHandler({ handleClose });
-
-  if (open) {
-    return (
-      <StyledModal>
-        <div className="modal-content">
-          {/* eslint-disable-next-line jsx-a11y/interactive-supports-focus */}
-          <span
-            className="close"
-            role="button"
-            onClick={handleClose}
-            onKeyUp={handleClose}
-          >
-            &times;
-          </span>
-          <br />
-          <div className="username-component">
-            <label htmlFor="username">Username</label>
-            <br />
-            <input
-              type="text"
-              value={username}
-              onChange={handleChangeUsername}
-            />
-            <br />
-            <div className="submit-login" align="right">
-              <button type="submit" onClick={handleClickSubmit}>
-                Log In
-              </button>
-            </div>
-          </div>
-        </div>
-      </StyledModal>
+  let loginButton;
+  let usernameTextbox;
+  if (isLoading) {
+    loginButton = (
+      <button type="submit" disabled>
+        <i className="fa fa-spinner fa-spin" />
+      </button>
+    );
+    usernameTextbox = <input type="text" value={username} disabled />;
+  } else {
+    loginButton = (
+      <button type="submit" onClick={onClickLogin}>
+        Log In
+      </button>
+    );
+    usernameTextbox = (
+      <input type="text" value={username} onChange={onChangeUsername} />
     );
   }
 
-  return null;
+  return (
+    <StyledModal>
+      <div className="modal-content">
+        {/* eslint-disable-next-line jsx-a11y/interactive-supports-focus */}
+        <span
+          className="close"
+          role="button"
+          onClick={onCloseLoginModal}
+          onKeyUp={onCloseLoginModal}
+        >
+          &times;
+        </span>
+        <br />
+        <div className="username-component">
+          <label htmlFor="username">Username</label>
+          <br />
+          {usernameTextbox}
+          <br />
+          <div className="submit-login" align="right">
+            {hasLoginError ? (
+              <Icon className="fa fa-exclamation-triangle" />
+            ) : null}
+            {loginButton}
+          </div>
+        </div>
+      </div>
+    </StyledModal>
+  );
 }
 
 LoginModal.propTypes = {
-  onLoginClose: PropTypes.func.isRequired,
+  username: PropTypes.string.isRequired,
+  isLoading: PropTypes.bool.isRequired,
+  hasLoginError: PropTypes.bool.isRequired,
+  onCloseLoginModal: PropTypes.func.isRequired,
+  onChangeUsername: PropTypes.func.isRequired,
+  onClickLogin: PropTypes.func.isRequired,
 };
 
-export default memo(LoginModal);
+const mapStateToProps = createStructuredSelector({
+  username: makeSelectUsername(),
+  isLoading: makeSelectIsLoading(),
+  hasLoginError: makeSelectHasLoginError(),
+});
+
+function onCloseLoginModalCreator(dispatch) {
+  return () => {
+    dispatch(closeLoginModal());
+  };
+}
+
+function onChangeUsernameCreator(dispatch) {
+  return evt => {
+    dispatch(changeUsername({ username: evt.target.value }));
+  };
+}
+
+function onClickLoginCreator(dispatch) {
+  return () => {
+    dispatch(login());
+  };
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    onCloseLoginModal: onCloseLoginModalCreator(dispatch),
+    onChangeUsername: onChangeUsernameCreator(dispatch),
+    onClickLogin: onClickLoginCreator(dispatch),
+  };
+}
+
+const withConnect = connect(
+  mapStateToProps,
+  mapDispatchToProps,
+);
+
+export default compose(
+  withConnect,
+  memo,
+)(LoginModal);

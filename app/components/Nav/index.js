@@ -24,7 +24,7 @@ const HomeNavItem = styled(NavItem)`
   }
 `;
 
-const Nav = ({ routes, onLoginClick }) => {
+const Nav = ({ routes, onClickLogin, onClickLogout, user }) => {
   let navItems = [];
   if (routes) {
     navItems = routes.reverse().map(route => (
@@ -34,14 +34,25 @@ const Nav = ({ routes, onLoginClick }) => {
     ));
   }
 
-  navItems.unshift(
-    <NavItem key="login">
-      {/* eslint-disable-next-line jsx-a11y/anchor-is-valid,jsx-a11y/interactive-supports-focus */}
-      <a role="button" onClick={onLoginClick} onKeyUp={onLoginClick}>
-        Log In
-      </a>
-    </NavItem>,
-  );
+  if (user) {
+    navItems.unshift(
+      <NavItem key="logout">
+        {/* eslint-disable-next-line jsx-a11y/anchor-is-valid,jsx-a11y/interactive-supports-focus */}
+        <a role="button" onClick={onClickLogout} onKeyUp={onClickLogout}>
+          Log Out
+        </a>
+      </NavItem>,
+    );
+  } else {
+    navItems.unshift(
+      <NavItem key="login">
+        {/* eslint-disable-next-line jsx-a11y/anchor-is-valid,jsx-a11y/interactive-supports-focus */}
+        <a role="button" onClick={onClickLogin} onKeyUp={onClickLogin}>
+          Log In
+        </a>
+      </NavItem>,
+    );
+  }
 
   navItems.unshift(
     <HomeNavItem key="home">
@@ -54,7 +65,9 @@ const Nav = ({ routes, onLoginClick }) => {
 
 Nav.propTypes = {
   routes: PropTypes.array.isRequired,
-  onLoginClick: PropTypes.func.isRequired,
+  onClickLogin: PropTypes.func.isRequired,
+  onClickLogout: PropTypes.func.isRequired,
+  user: PropTypes.object,
 };
 
 export default Nav;
