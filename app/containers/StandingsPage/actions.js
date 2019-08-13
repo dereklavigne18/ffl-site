@@ -5,12 +5,26 @@
  */
 
 import {
+  OPEN_TIMELINE_DRAWER,
+  CLOSE_TIMELINE_DRAWER,
   CHANGE_YEAR,
   CHANGE_WEEK,
   LOAD_STANDINGS,
   STANDINGS_LOADED,
   STANDINGS_LOADED_ERROR,
 } from './constants';
+
+export function openTimelineDrawer() {
+  return {
+    type: OPEN_TIMELINE_DRAWER,
+  };
+}
+
+export function closeTimelineDrawer() {
+  return {
+    type: CLOSE_TIMELINE_DRAWER,
+  };
+}
 
 export function changeYear({ year }) {
   return {

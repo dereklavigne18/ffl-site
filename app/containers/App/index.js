@@ -126,8 +126,4 @@ const routes = [
     to: '/scoreboard',
     title: 'Scoreboard',
   },
-  {
-    to: '/something',
-    title: 'Something',
-  },
 ];

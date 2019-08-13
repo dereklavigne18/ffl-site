@@ -5,6 +5,8 @@
  */
 import produce from 'immer';
 import {
+  OPEN_TIMELINE_DRAWER,
+  CLOSE_TIMELINE_DRAWER,
   CHANGE_YEAR,
   CHANGE_WEEK,
   LOAD_STANDINGS,
@@ -13,12 +15,24 @@ import {
 } from './constants';
 
 export const initialState = {
+  isTimelineDrawerOpen: false,
   year: 2018,
   week: 1,
   standings: [],
   isLoading: false,
   loadingError: null,
 };
+
+function isTimelineDrawerOpen(state, action) {
+  switch (action.type) {
+    case OPEN_TIMELINE_DRAWER:
+      return true;
+    case CLOSE_TIMELINE_DRAWER:
+      return false;
+    default:
+      return state;
+  }
+}
 
 function year(state, action) {
   switch (action.type) {
@@ -79,6 +93,10 @@ function loadingError(state, action) {
 /* eslint-disable no-param-reassign */
 const standingsPageReducer = (state = initialState, action) =>
   produce(state, draft => {
+    draft.isTimelineDrawerOpen = isTimelineDrawerOpen(
+      draft.isTimelineDrawerOpen,
+      action,
+    );
     draft.year = year(draft.year, action);
     draft.week = week(draft.week, action);
     draft.standings = standings(draft.standings, action);

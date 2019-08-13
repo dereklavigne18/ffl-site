@@ -15,6 +15,8 @@ const GlobalStyle = createGlobalStyle`
   body.fontLoaded {
     font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
   }
+  
+  *:focus {outline:none !important}
 
   #app {
     background-color: #1f2021;

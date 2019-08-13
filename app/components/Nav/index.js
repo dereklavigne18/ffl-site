@@ -27,7 +27,9 @@ const HomeNavItem = styled(NavItem)`
 const Nav = ({ routes, onClickLogin, onClickLogout, user }) => {
   let navItems = [];
   if (routes) {
-    navItems = routes.reverse().map(route => (
+    // Reverse operates in place, so to avoid reversing the render order every time I'll just clone
+    // the routes ahead of time.
+    navItems = [...routes].reverse().map(route => (
       <NavItem key={route.title}>
         <NavLink to={route.to}>{route.title}</NavLink>
       </NavItem>

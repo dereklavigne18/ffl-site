@@ -16,18 +16,28 @@ const StyledLabel = styled.label`
   display: block;
 `;
 
+const SelectBox = styled.div`
+  border-bottom: 1px solid white;
+  margin-right: 10px;
+  font-size: 20px;
+`;
+
 const StyledSelect = styled.select`
   display: block;
+  background-color: transparent;
+  cursor: pointer;
+  color: white;
+  border: none;
 `;
 
 function Select({ label, defaultValue, onChange, ...props }) {
   return (
-    <div>
+    <SelectBox>
       {label ? <StyledLabel>{label}</StyledLabel> : null}
       <StyledSelect defaultValue={defaultValue} onChange={onChange}>
         {props.children}
       </StyledSelect>
-    </div>
+    </SelectBox>
   );
 }
 

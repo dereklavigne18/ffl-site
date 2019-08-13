@@ -6,6 +6,12 @@ import { initialState } from './reducer';
  */
 const selectStandingsPageDomain = state => state.standingsPage || initialState;
 
+const makeSelectIsTimelineDrawerOpen = () =>
+  createSelector(
+    selectStandingsPageDomain,
+    state => state.isTimelineDrawerOpen,
+  );
+
 const makeSelectYear = () =>
   createSelector(
     selectStandingsPageDomain,
@@ -37,6 +43,7 @@ const makeSelectLoadingError = () =>
   );
 
 export {
+  makeSelectIsTimelineDrawerOpen,
   makeSelectYear,
   makeSelectWeek,
   makeSelectStandings,

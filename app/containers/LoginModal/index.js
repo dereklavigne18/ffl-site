@@ -41,7 +41,7 @@ const StyledModal = styled.div`
     padding-right: 5px;
     border: 1px solid #888;
     width: 30%;
-    background-color: #1f2021;
+    background-color: #38393b;
     border: 2px solid red;
     border-radius: 5px;
     overflow: scroll;

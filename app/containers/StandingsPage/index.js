@@ -15,6 +15,8 @@ import { useInjectSaga } from 'utils/injectSaga';
 import { useInjectReducer } from 'utils/injectReducer';
 
 import {
+  openTimelineDrawer,
+  closeTimelineDrawer,
   changeYear,
   changeWeek,
   loadStandings,
@@ -22,6 +24,7 @@ import {
 import reducer from 'containers/StandingsPage/reducer';
 import saga from 'containers/StandingsPage/saga';
 import {
+  makeSelectIsTimelineDrawerOpen,
   makeSelectWeek,
   makeSelectYear,
   makeSelectStandings,
@@ -29,26 +32,71 @@ import {
   makeSelectLoadingError,
 } from 'containers/StandingsPage/selectors';
 
-import Card from 'components/Card/Loadable';
-import { FloatLeft } from 'components/Floaters';
+// import Card from 'components/Card/Loadable';
+// import { FloatLeft } from 'components/Floaters';
 import Table from 'components/Table/Loadable';
 import Oops from 'components/Oops/Loadable';
 import Spinner from 'components/Spinner/Loadable';
 import WeekSelector from './WeekSelector';
 import YearSelector from './YearSelector';
 
-const SelectorContainer = styled(FloatLeft)`
-  margin-right: 15px;
+const TimePeriodInputWrapper = styled.div`
+  & div {
+    display: inline-block;
+  }
+`;
+
+const SettingsTab = styled.div`
+  position: fixed;
+`;
+
+const ShiftedSettingsTab = styled(SettingsTab)`
+  left: 40%;
+`;
+
+const SettingsButton = styled.button`
+  background-color: #1f2021;
+  color: red;
+  font-size: 50px;
+
+  margin-top: 10px;
+  margin-left: -3px;
+
+  border-color: red;
+  border-width: 3px;
+  border-radius: 5%;
+
+  & :hover {
+    cursor: pointer;
+  }
+`;
+
+const SettingsDrawer = styled.div`
+  position: fixed;
+  z-index: 1;
+
+  height: 100%;
+  width: 40%;
+  min-width: 200px;
+  overflow-x: hidden;
+
+  background-color: #38393b;
+  border-right: 3px solid red;
+
+  padding: 10px;
 `;
 
 export function StandingsPage({
+  isTimelineDrawerOpen,
   year,
   week,
   standings,
-  onChangeYear,
-  onChangeWeek,
   isLoading,
   loadingError,
+  onChangeYear,
+  onChangeWeek,
+  onClickOpenTimelineDrawer,
+  onClickCloseTimelineDrawer,
 }) {
   useInjectReducer({ key: 'standingsPage', reducer });
   useInjectSaga({ key: 'standingsPage', saga });
@@ -70,22 +118,44 @@ export function StandingsPage({
     content = <Oops />;
   }
 
+  if (isTimelineDrawerOpen) {
+    return (
+      <div>
+        <div>
+          <SettingsDrawer>
+            <h3>
+              Set the season and week you would like to view the standings for.
+            </h3>
+            <TimePeriodInputWrapper>
+              <YearSelector defaultValue={year} onChange={onChangeYear} />
+              <WeekSelector defaultValue={week} onChange={onChangeWeek} />
+            </TimePeriodInputWrapper>
+          </SettingsDrawer>
+          <ShiftedSettingsTab>
+            <SettingsButton onClick={onClickCloseTimelineDrawer}>
+              <i className="fa fa-chevron-left" />
+            </SettingsButton>
+          </ShiftedSettingsTab>
+        </div>
+        {content}
+      </div>
+    );
+  }
+
   return (
     <div>
-      <Card title="Timeframe">
-        <SelectorContainer>
-          <YearSelector defaultValue={year} onChange={onChangeYear} />
-        </SelectorContainer>
-        <SelectorContainer>
-          <WeekSelector defaultValue={week} onChange={onChangeWeek} />
-        </SelectorContainer>
-      </Card>
+      <SettingsTab>
+        <SettingsButton onClick={onClickOpenTimelineDrawer}>
+          <i className="fa fa-chevron-right" />
+        </SettingsButton>
+      </SettingsTab>
       {content}
     </div>
   );
 }
 
 StandingsPage.propTypes = {
+  isTimelineDrawerOpen: PropTypes.bool.isRequired,
   year: PropTypes.number.isRequired,
   week: PropTypes.number.isRequired,
   standings: PropTypes.array,
@@ -93,15 +163,30 @@ StandingsPage.propTypes = {
   loadingError: PropTypes.string,
   onChangeYear: PropTypes.func.isRequired,
   onChangeWeek: PropTypes.func.isRequired,
+  onClickOpenTimelineDrawer: PropTypes.func.isRequired,
+  onClickCloseTimelineDrawer: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = createStructuredSelector({
+  isTimelineDrawerOpen: makeSelectIsTimelineDrawerOpen(),
   year: makeSelectYear(),
   week: makeSelectWeek(),
   standings: makeSelectStandings(),
   isLoading: makeSelectIsLoading(),
   loadingError: makeSelectLoadingError(),
 });
+
+function onClickOpenTimelineDrawerCreator(dispatch) {
+  return () => {
+    dispatch(openTimelineDrawer());
+  };
+}
+
+function onClickCloseTimelineDrawerCreator(dispatch) {
+  return () => {
+    dispatch(closeTimelineDrawer());
+  };
+}
 
 function onChangeYearCreator(dispatch) {
   return evt => {
@@ -119,6 +204,8 @@ function onChangeWeekCreator(dispatch) {
 
 function mapDispatchToProps(dispatch) {
   return {
+    onClickOpenTimelineDrawer: onClickOpenTimelineDrawerCreator(dispatch),
+    onClickCloseTimelineDrawer: onClickCloseTimelineDrawerCreator(dispatch),
     onChangeYear: onChangeYearCreator(dispatch),
     onChangeWeek: onChangeWeekCreator(dispatch),
   };
