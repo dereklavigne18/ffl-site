@@ -29,10 +29,18 @@ const StyledTable = styled.table`
 
   & th {
     padding: 5px 10px;
+
+    & :first-child {
+      padding-left: 40px;
+    }
   }
 
   & td {
     padding: 0.75rem;
+
+    & :first-child {
+      padding-left: 40px;
+    }
   }
 `;
 

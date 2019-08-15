@@ -10,6 +10,7 @@
 import React, { memo } from 'react';
 import { Switch, Route } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import styled from 'styled-components';
 
 import Nav from 'components/Nav/Loadable';
 
@@ -37,6 +38,10 @@ import {
 
 import GlobalStyle from '../../global-styles';
 
+const AppContent = styled.div`
+  margin-top: 49px;
+`;
+
 export function App({
   user,
   isLoginModalOpen,
@@ -55,15 +60,17 @@ export function App({
         onClickLogout={onClickLogout}
         user={user}
       />
-      <Switch>
-        <Route exact path="/" component={HomePage} />
-        <Route exact path="/standings" component={StandingsPage} />
-        <Route component={HomePage} />
-      </Switch>
-      {isLoginModalOpen ? (
-        <LoginModal onLoginClose={onCloseLoginModal} />
-      ) : null}
-      <GlobalStyle />
+      <AppContent>
+        <Switch>
+          <Route exact path="/" component={HomePage} />
+          <Route exact path="/standings" component={StandingsPage} />
+          <Route component={HomePage} />
+        </Switch>
+        {isLoginModalOpen ? (
+          <LoginModal onLoginClose={onCloseLoginModal} />
+        ) : null}
+        <GlobalStyle />
+      </AppContent>
     </div>
   );
 }

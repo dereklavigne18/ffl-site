@@ -8,7 +8,7 @@ import PropTypes from 'prop-types';
 import Option from '../../components/Select/Option';
 import Select from '../../components/Select';
 
-const MIN = 2016;
+const MIN = 2018;
 const MAX = 2019; // Current year
 const STEP = 1;
 

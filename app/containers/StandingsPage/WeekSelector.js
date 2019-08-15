@@ -9,7 +9,7 @@ import Select from '../../components/Select';
 import Option from '../../components/Select/Option';
 
 const MIN = 1;
-const MAX = 18;
+const MAX = 14;
 const STEP = 1;
 
 function WeekSelector({ onChange, defaultValue }) {

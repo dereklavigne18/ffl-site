@@ -5,8 +5,10 @@ const {
   ESPN_LEAGUE_ID,
   YAHOO_LEAGUE_ID,
   ESPN_BASE_URL,
-  ESPN_COOKIE_S2,
-  ESPN_COOKIE_SWID,
+  ESPN_COOKIE_YAHOO_S2,
+  ESPN_COOKIE_YAHOO_SWID,
+  ESPN_COOKIE_ESPN_S2,
+  ESPN_COOKIE_ESPN_SWID,
 } = require('../../constants');
 
 class Client {
@@ -43,16 +45,16 @@ class Client {
 function getEspnLeagueClient() {
   return new Client({
     leagueId: ESPN_LEAGUE_ID,
-    espnS2: ESPN_COOKIE_S2,
-    swId: ESPN_COOKIE_SWID,
+    espnS2: ESPN_COOKIE_ESPN_S2,
+    swId: ESPN_COOKIE_ESPN_SWID,
   });
 }
 
 function getYahooLeagueClient() {
   return new Client({
     leagueId: YAHOO_LEAGUE_ID,
-    espnS2: ESPN_COOKIE_S2,
-    swId: ESPN_COOKIE_SWID,
+    espnS2: ESPN_COOKIE_YAHOO_S2,
+    swId: ESPN_COOKIE_YAHOO_SWID,
   });
 }
 

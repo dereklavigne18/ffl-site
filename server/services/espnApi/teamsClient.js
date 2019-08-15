@@ -11,7 +11,7 @@ function constructTeam(teamData) {
 
 function constructTeams(teams) {
   return teams.reduce((teamMap, team) => {
-    const clonedTeamMap = teamMap;
+    const clonedTeamMap = { ...teamMap };
 
     const constructedTeam = constructTeam(team);
     clonedTeamMap[constructedTeam.id] = constructedTeam;

@@ -9,6 +9,10 @@ const NavBar = styled.nav`
   padding: 0;
   overflow: hidden;
 
+  position: fixed;
+  top: 0;
+  width: 100%;
+
   background-color: lightgray;
   background-image: repeating-linear-gradient(
     45deg,

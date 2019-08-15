@@ -1,3 +1,5 @@
+const { range } = require('../polyfills');
+
 const {
   fetchEspnBoxscores,
   fetchYahooBoxscores,
@@ -5,7 +7,7 @@ const {
 const { getEspnTeams, getYahooTeams } = require('./teams');
 
 // Numbers 1-13 representing the weeks in the season
-const WEEKS = Array(13).map(i => i + 1);
+const WEEKS = range(1, 14);
 
 function isInterleagueWeek(week) {
   return week % 3 === 0;
@@ -35,7 +37,7 @@ function mergeBoxscoresForWeek({ espnBoxscores, yahooBoxscores }) {
 }
 
 function findBoxscoreForHomeTeam(boxscores, teamId) {
-  return boxscores.find(boxscore => boxscore.home.team.id === teamId);
+  return boxscores.find(boxscore => boxscore.home.team.id === teamId).home;
 }
 
 function mergeBoxscoresForInterleagueWeek({
@@ -100,7 +102,7 @@ function calculateBoxscores({
   season,
 }) {
   return WEEKS.reduce((boxscoreMap, week) => {
-    const clonedBoxscoreMap = boxscoreMap;
+    const clonedBoxscoreMap = { ...boxscoreMap };
     clonedBoxscoreMap[week] = calculateBoxscoresForWeek({
       espnBoxscores: espnBoxscores[week],
       yahooBoxscores: yahooBoxscores[week],
@@ -111,7 +113,7 @@ function calculateBoxscores({
     });
 
     return clonedBoxscoreMap;
-  });
+  }, {});
 }
 
 // Returns data in the format:
@@ -155,13 +157,15 @@ async function getAllBoxscores({ season, week }) {
   const espnTeams = await getEspnTeams({ season, week });
   const yahooTeams = await getYahooTeams({ season, week });
 
-  return calculateBoxscores({
+  const result = calculateBoxscores({
     espnBoxscores,
     yahooBoxscores,
     espnTeams,
     yahooTeams,
     season,
   });
+
+  return result;
 }
 
 module.exports = {

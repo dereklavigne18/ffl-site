@@ -59,7 +59,7 @@ const SettingsButton = styled.button`
   color: red;
   font-size: 50px;
 
-  margin-top: 10px;
+  margin-top: 50px;
   margin-left: -3px;
 
   border-color: red;

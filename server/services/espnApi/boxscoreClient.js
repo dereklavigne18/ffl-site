@@ -4,7 +4,7 @@ const logger = require('../../logger');
 function constructTeamScore(teamScore) {
   return {
     teamId: teamScore.teamId,
-    points: teamScore.totalPoints,
+    points: +teamScore.totalPoints.toFixed(2),
   };
 }
 
@@ -23,7 +23,7 @@ function constructBoxscores(schedule) {
         : [];
     scores.push(constructBoxscore(score));
 
-    const clonedBoxscores = boxscores;
+    const clonedBoxscores = { ...boxscores };
     clonedBoxscores[score.matchupPeriodId] = scores;
 
     return clonedBoxscores;
