@@ -20,11 +20,13 @@ import {
   changeYear,
   changeWeek,
   loadStandings,
+  loadTimePeriods,
 } from 'containers/StandingsPage/actions';
 import reducer from 'containers/StandingsPage/reducer';
 import saga from 'containers/StandingsPage/saga';
 import {
   makeSelectIsTimelineDrawerOpen,
+  makeSelectSeasons,
   makeSelectWeek,
   makeSelectYear,
   makeSelectStandings,
@@ -32,13 +34,11 @@ import {
   makeSelectLoadingError,
 } from 'containers/StandingsPage/selectors';
 
-// import Card from 'components/Card/Loadable';
-// import { FloatLeft } from 'components/Floaters';
+import TimePeriodController from 'containers/StandingsPage/TimePeriodController';
+
 import Table from 'components/Table/Loadable';
 import Oops from 'components/Oops/Loadable';
 import Spinner from 'components/Spinner/Loadable';
-import WeekSelector from './WeekSelector';
-import YearSelector from './YearSelector';
 
 const TimePeriodInputWrapper = styled.div`
   & div {
@@ -88,26 +88,25 @@ const SettingsDrawer = styled.div`
 
 export function StandingsPage({
   isTimelineDrawerOpen,
+  seasons,
   year,
   week,
   standings,
   isLoading,
   loadingError,
-  onChangeYear,
-  onChangeWeek,
-  onClickOpenTimelineDrawer,
-  onClickCloseTimelineDrawer,
+  handleInitializeSeasons,
+  handleChangeYear,
+  handleChangeWeek,
+  handleClickOpenTimelineDrawer,
+  handleClickCloseTimelineDrawer,
 }) {
   useInjectReducer({ key: 'standingsPage', reducer });
   useInjectSaga({ key: 'standingsPage', saga });
 
-  // On initial render, set the current year, so we load the year's data
+  // On initial render, get and set the current time period
   useEffect(() => {
-    if (standings.length === 0) {
-      const evt = {
-        target: { value: 2018 },
-      };
-      onChangeYear(evt);
+    if (seasons.length === 0) {
+      handleInitializeSeasons();
     }
   }, []);
 
@@ -127,12 +126,17 @@ export function StandingsPage({
               Set the season and week you would like to view the standings for.
             </h3>
             <TimePeriodInputWrapper>
-              <YearSelector defaultValue={year} onChange={onChangeYear} />
-              <WeekSelector defaultValue={week} onChange={onChangeWeek} />
+              <TimePeriodController
+                year={year}
+                week={week}
+                seasons={seasons}
+                handleChangeYear={handleChangeYear}
+                handleChangeWeek={handleChangeWeek}
+              />
             </TimePeriodInputWrapper>
           </SettingsDrawer>
           <ShiftedSettingsTab>
-            <SettingsButton onClick={onClickCloseTimelineDrawer}>
+            <SettingsButton onClick={handleClickCloseTimelineDrawer}>
               <i className="fa fa-chevron-left" />
             </SettingsButton>
           </ShiftedSettingsTab>
@@ -145,7 +149,7 @@ export function StandingsPage({
   return (
     <div>
       <SettingsTab>
-        <SettingsButton onClick={onClickOpenTimelineDrawer}>
+        <SettingsButton onClick={handleClickOpenTimelineDrawer}>
           <i className="fa fa-chevron-right" />
         </SettingsButton>
       </SettingsTab>
@@ -156,19 +160,22 @@ export function StandingsPage({
 
 StandingsPage.propTypes = {
   isTimelineDrawerOpen: PropTypes.bool.isRequired,
-  year: PropTypes.number.isRequired,
-  week: PropTypes.number.isRequired,
+  seasons: PropTypes.array,
+  year: PropTypes.number,
+  week: PropTypes.number,
   standings: PropTypes.array,
   isLoading: PropTypes.bool,
   loadingError: PropTypes.string,
-  onChangeYear: PropTypes.func.isRequired,
-  onChangeWeek: PropTypes.func.isRequired,
-  onClickOpenTimelineDrawer: PropTypes.func.isRequired,
-  onClickCloseTimelineDrawer: PropTypes.func.isRequired,
+  handleInitializeSeasons: PropTypes.func.isRequired,
+  handleChangeYear: PropTypes.func.isRequired,
+  handleChangeWeek: PropTypes.func.isRequired,
+  handleClickOpenTimelineDrawer: PropTypes.func.isRequired,
+  handleClickCloseTimelineDrawer: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = createStructuredSelector({
   isTimelineDrawerOpen: makeSelectIsTimelineDrawerOpen(),
+  seasons: makeSelectSeasons(),
   year: makeSelectYear(),
   week: makeSelectWeek(),
   standings: makeSelectStandings(),
@@ -176,26 +183,32 @@ const mapStateToProps = createStructuredSelector({
   loadingError: makeSelectLoadingError(),
 });
 
-function onClickOpenTimelineDrawerCreator(dispatch) {
+function handleInitializeSeasonsCreator(dispatch) {
+  return () => {
+    dispatch(loadTimePeriods());
+  };
+}
+
+function handleClickOpenTimelineDrawerCreator(dispatch) {
   return () => {
     dispatch(openTimelineDrawer());
   };
 }
 
-function onClickCloseTimelineDrawerCreator(dispatch) {
+function handleClickCloseTimelineDrawerCreator(dispatch) {
   return () => {
     dispatch(closeTimelineDrawer());
   };
 }
 
-function onChangeYearCreator(dispatch) {
+function handleChangeYearCreator(dispatch) {
   return evt => {
     dispatch(changeYear({ year: parseInt(evt.target.value, 10) }));
     dispatch(loadStandings());
   };
 }
 
-function onChangeWeekCreator(dispatch) {
+function handleChangeWeekCreator(dispatch) {
   return evt => {
     dispatch(changeWeek({ week: parseInt(evt.target.value, 10) }));
     dispatch(loadStandings());
@@ -204,10 +217,15 @@ function onChangeWeekCreator(dispatch) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    onClickOpenTimelineDrawer: onClickOpenTimelineDrawerCreator(dispatch),
-    onClickCloseTimelineDrawer: onClickCloseTimelineDrawerCreator(dispatch),
-    onChangeYear: onChangeYearCreator(dispatch),
-    onChangeWeek: onChangeWeekCreator(dispatch),
+    handleInitializeSeasons: handleInitializeSeasonsCreator(dispatch),
+    handleClickOpenTimelineDrawer: handleClickOpenTimelineDrawerCreator(
+      dispatch,
+    ),
+    handleClickCloseTimelineDrawer: handleClickCloseTimelineDrawerCreator(
+      dispatch,
+    ),
+    handleChangeYear: handleChangeYearCreator(dispatch),
+    handleChangeWeek: handleChangeWeekCreator(dispatch),
   };
 }
 

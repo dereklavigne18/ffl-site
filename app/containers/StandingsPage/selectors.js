@@ -12,6 +12,12 @@ const makeSelectIsTimelineDrawerOpen = () =>
     state => state.isTimelineDrawerOpen,
   );
 
+const makeSelectSeasons = () =>
+  createSelector(
+    selectStandingsPageDomain,
+    state => state.seasons,
+  );
+
 const makeSelectYear = () =>
   createSelector(
     selectStandingsPageDomain,
@@ -44,6 +50,7 @@ const makeSelectLoadingError = () =>
 
 export {
   makeSelectIsTimelineDrawerOpen,
+  makeSelectSeasons,
   makeSelectYear,
   makeSelectWeek,
   makeSelectStandings,

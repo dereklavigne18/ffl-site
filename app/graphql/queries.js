@@ -1,5 +1,16 @@
 import gql from 'graphql-tag';
 
+const timePeriodQuery = gql`
+  query times {
+    currentWeek
+    currentSeason
+    seasons {
+      year
+      weeks
+    }
+  }
+`;
+
 const standingsQuery = gql`
   query standings($year: Int!, $week: Int!) {
     standings(year: $year, week: $week) {
@@ -23,4 +34,4 @@ const standingsQuery = gql`
   }
 `;
 
-export { standingsQuery };
+export { timePeriodQuery, standingsQuery };

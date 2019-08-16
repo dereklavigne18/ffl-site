@@ -27,7 +27,7 @@ class Client {
 
   async getTeamsAtWeek({ season, week }) {
     const pathBase = `${season}/segments/0/leagues/${this.leagueId}`;
-    const pathParams = `?scoringPeriodId=${week}&view=mRoster&view=mTeam`;
+    const pathParams = `?scoringPeriodId=${week}&view=mTeam`;
     const urlPath = `${pathBase}${pathParams}`;
 
     return this.get({ urlPath }).catch(logger.error);

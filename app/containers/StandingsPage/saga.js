@@ -2,23 +2,26 @@
  * API calls for the standings page
  */
 
-import { call, put, select, takeLatest } from 'redux-saga/effects';
+import { call, put, select, takeLatest, fork, all } from 'redux-saga/effects';
 import { graphql } from 'utils/request';
-import { standingsQuery } from 'graphql/queries';
-import { LOAD_STANDINGS } from 'containers/StandingsPage/constants';
+import { standingsQuery, timePeriodQuery } from 'graphql/queries';
 import {
+  LOAD_STANDINGS,
+  LOAD_TIME_PERIODS,
+} from 'containers/StandingsPage/constants';
+import {
+  loadStandings,
   standingsLoaded,
   standingsLoadedError,
+  timePeriodsLoaded,
+  timePeriodsLoadedError,
 } from 'containers/StandingsPage/actions';
 import {
   makeSelectYear,
   makeSelectWeek,
 } from 'containers/StandingsPage/selectors';
 
-/**
- * Github repos request/response handler
- */
-export function* getStandings() {
+function* getStandings() {
   const year = yield select(makeSelectYear());
   const week = yield select(makeSelectWeek());
 
@@ -49,13 +52,35 @@ export function* getStandings() {
   }
 }
 
-/**
- * Root saga manages watcher lifecycle
- */
-export default function* standingsData() {
-  // Watches for LOAD_STANDINGS actions and calls getStandings when one comes in.
-  // By using `takeLatest` only the result of the latest API call is applied.
-  // It returns task descriptor (just like fork) so we can continue execution
-  // It will be cancelled automatically on component unmount
+function* watchLoadStandings() {
   yield takeLatest(LOAD_STANDINGS, getStandings);
+}
+
+function* getTimePeriods() {
+  try {
+    const timePeriodsResponse = yield call(graphql, timePeriodQuery);
+    if (!timePeriodsResponse.data) {
+      yield put(timePeriodsLoadedError({ error: 'No records returned' }));
+      return;
+    }
+
+    yield put(
+      timePeriodsLoaded({
+        week: timePeriodsResponse.data.currentWeek,
+        year: timePeriodsResponse.data.currentSeason,
+        seasons: timePeriodsResponse.data.seasons,
+      }),
+    );
+    yield put(loadStandings());
+  } catch (error) {
+    yield put(timePeriodsLoadedError({ error }));
+  }
+}
+
+function* watchLoadTimePeriods() {
+  yield takeLatest(LOAD_TIME_PERIODS, getTimePeriods);
+}
+
+export default function* rootSaga() {
+  yield all([fork(watchLoadStandings), fork(watchLoadTimePeriods)]);
 }

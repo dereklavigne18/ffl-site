@@ -12,6 +12,9 @@ import {
   LOAD_STANDINGS,
   STANDINGS_LOADED,
   STANDINGS_LOADED_ERROR,
+  LOAD_TIME_PERIODS,
+  TIME_PERIODS_LOADED,
+  TIME_PERIODS_LOADED_ERROR,
 } from './constants';
 
 export function openTimelineDrawer() {
@@ -56,6 +59,29 @@ export function standingsLoaded({ standings }) {
 export function standingsLoadedError({ error }) {
   return {
     type: STANDINGS_LOADED_ERROR,
+    error,
+  };
+}
+
+// These are mostly used on initialization
+export function loadTimePeriods() {
+  return {
+    type: LOAD_TIME_PERIODS,
+  };
+}
+
+export function timePeriodsLoaded({ week, year, seasons }) {
+  return {
+    type: TIME_PERIODS_LOADED,
+    week,
+    year,
+    seasons,
+  };
+}
+
+export function timePeriodsLoadedError({ error }) {
+  return {
+    type: TIME_PERIODS_LOADED_ERROR,
     error,
   };
 }

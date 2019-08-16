@@ -1,5 +1,13 @@
 type Query {
+  currentWeek: Int!
+  currentSeason: Int!
+  seasons: [Season!]!
   standings(year: Int!, week: Int!): StandingsRecord!
+}
+
+type Season {
+  year: Int!
+  weeks: [Int!]!
 }
 
 type StandingsRecord {
