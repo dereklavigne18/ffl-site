@@ -5,15 +5,20 @@
 const GRAPHQL_URL = 'http://localhost:3000/graphql';
 
 /**
- * Parses the JSON returned by a network request
+ * Parses the the response using the content provided in the content-type header
  *
  * @param  {object} response A response from a network request
  *
- * @return {object}          The parsed JSON from the request
+ * @return {object}
  */
-function parseJSON(response) {
+function parseResponse(response) {
   if (response.status === 204 || response.status === 205) {
     return null;
+  }
+
+  const contentType = response.headers.get('content-type');
+  if (contentType.indexOf('text/plain') !== -1) {
+    return response.text();
   }
   return response.json();
 }
@@ -46,7 +51,7 @@ function checkStatus(response) {
 export function request(url, options) {
   return fetch(url, options)
     .then(checkStatus)
-    .then(parseJSON);
+    .then(parseResponse);
 }
 
 /**

@@ -10,6 +10,7 @@ import {
   LOGIN,
   SUCCESSFUL_LOGIN,
   FAILED_LOGIN,
+  CLEAR_LOGIN_ERROR,
 } from './constants';
 
 export const initialState = {
@@ -45,6 +46,7 @@ function isLoading(state, action) {
 function hasLoginError(state, action) {
   switch (action.type) {
     case LOGIN:
+    case CLEAR_LOGIN_ERROR:
       return false;
     case FAILED_LOGIN:
       return true;

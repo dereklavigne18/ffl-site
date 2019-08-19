@@ -3,6 +3,7 @@ import {
   LOGIN,
   SUCCESSFUL_LOGIN,
   FAILED_LOGIN,
+  CLEAR_LOGIN_ERROR,
 } from './constants';
 
 export function changeUsername({ username }) {
@@ -22,4 +23,8 @@ export function successfulLogin() {
 
 export function failedLogin() {
   return { type: FAILED_LOGIN };
+}
+
+export function clearLoginError() {
+  return { type: CLEAR_LOGIN_ERROR };
 }

@@ -4,7 +4,7 @@
  *
  */
 
-import React, { memo } from 'react';
+import React, { memo, createRef, useEffect } from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 
@@ -21,7 +21,11 @@ import {
   makeSelectIsLoading,
   makeSelectHasLoginError,
 } from 'containers/LoginModal/selectors';
-import { changeUsername, login } from 'containers/LoginModal/actions';
+import {
+  changeUsername,
+  login,
+  clearLoginError,
+} from 'containers/LoginModal/actions';
 import { closeLoginModal } from 'containers/App/actions';
 import { useInjectSaga } from '../../utils/injectSaga';
 
@@ -30,21 +34,27 @@ const StyledModal = styled.div`
   position: fixed;
   z-index: 2;
   left: 0;
-  top: 30%;
+  top: 75px;
   width: 100%;
   height: 100%;
-  overflow: auto;
+  overflow-y: visible;
 
   & .modal-content {
-    margin: auto;
-    padding-left: 5px;
+    float: right;
+    width: 300px;
+    position: relative;
+
+    margin-right: 10px;
+    padding-top: 10px;
+    padding-bottom: 25px;
+    padding-left: 10px;
     padding-right: 5px;
-    border: 1px solid #888;
-    width: 30%;
+
     background-color: #38393b;
-    border: 2px solid red;
+    border: 2px solid lightgrey;
     border-radius: 5px;
-    overflow: scroll;
+
+    overflow-y: visible;
 
     & .username-component {
       margin: auto;
@@ -69,6 +79,28 @@ const StyledModal = styled.div`
     }
   }
 
+  & .modal-content:before {
+    content: ' ';
+    position: absolute;
+    display: block;
+    top: -28px;
+    right: 10px;
+    border-width: 0 18px 28px;
+    border-style: solid;
+    border-color: lightgrey transparent;
+  }
+
+  & .modal-content:after {
+    content: ' ';
+    position: absolute;
+    display: block;
+    top: -24px;
+    right: 14px;
+    border-width: 0 14px 24px;
+    border-style: solid;
+    border-color: #38393b transparent;
+  }
+
   & .close {
     color: #aaaaaa;
     font-size: 28px;
@@ -85,65 +117,71 @@ const StyledModal = styled.div`
 
 const Icon = styled.i`
   color: red;
-  float: left;
 `;
+
+const Warning = styled.p`
+  color: orange;
+  margin-top: 5px;
+  margin-bottom: 0px;
+`;
+
+function handlePageClick({ ref, handleCloseLoginModal }) {
+  return evt => {
+    if (!ref.current.contains(evt.target)) {
+      handleCloseLoginModal();
+    }
+  };
+}
 
 export function LoginModal({
   username,
   isLoading,
   hasLoginError,
-  onCloseLoginModal,
-  onChangeUsername,
-  onClickLogin,
+  handleCloseLoginModal,
+  handleChangeUsername,
+  handleLogin,
 }) {
   useInjectReducer({ key: 'loginModal', reducer });
   useInjectSaga({ key: 'loginModal', saga });
 
-  let loginButton;
-  let usernameTextbox;
+  const ref = createRef();
+  useEffect(() => {
+    const handlePageClickFunc = handlePageClick({ ref, handleCloseLoginModal });
+    document.addEventListener('mousedown', handlePageClickFunc, false);
+
+    return () => {
+      document.removeEventListener('mousedown', handlePageClickFunc);
+    };
+  });
+
+  let content;
   if (isLoading) {
-    loginButton = (
-      <button type="submit" disabled>
-        <i className="fa fa-spinner fa-spin" />
-      </button>
-    );
-    usernameTextbox = <input type="text" value={username} disabled />;
+    content = <Icon className="fa fa-spinner fa-spin" />;
   } else {
-    loginButton = (
-      <button type="submit" onClick={onClickLogin}>
-        Log In
-      </button>
-    );
-    usernameTextbox = (
-      <input type="text" value={username} onChange={onChangeUsername} />
+    content = (
+      <div>
+        <p>Please enter your ESPN username</p>
+        <input
+          type="text"
+          placeholder="ESPN Username"
+          value={username}
+          onChange={handleChangeUsername}
+          onKeyUp={handleLogin}
+        />
+        {hasLoginError ? (
+          <Warning>
+            <Icon className="fa fa-exclamation-triangle" /> Didn&#39t recognize
+            provided username
+          </Warning>
+        ) : null}
+      </div>
     );
   }
 
   return (
     <StyledModal>
-      <div className="modal-content">
-        {/* eslint-disable-next-line jsx-a11y/interactive-supports-focus */}
-        <span
-          className="close"
-          role="button"
-          onClick={onCloseLoginModal}
-          onKeyUp={onCloseLoginModal}
-        >
-          &times;
-        </span>
-        <br />
-        <div className="username-component">
-          <label htmlFor="username">Username</label>
-          <br />
-          {usernameTextbox}
-          <br />
-          <div className="submit-login" align="right">
-            {hasLoginError ? (
-              <Icon className="fa fa-exclamation-triangle" />
-            ) : null}
-            {loginButton}
-          </div>
-        </div>
+      <div className="modal-content" ref={ref}>
+        {content}
       </div>
     </StyledModal>
   );
@@ -153,9 +191,9 @@ LoginModal.propTypes = {
   username: PropTypes.string.isRequired,
   isLoading: PropTypes.bool.isRequired,
   hasLoginError: PropTypes.bool.isRequired,
-  onCloseLoginModal: PropTypes.func.isRequired,
-  onChangeUsername: PropTypes.func.isRequired,
-  onClickLogin: PropTypes.func.isRequired,
+  handleCloseLoginModal: PropTypes.func.isRequired,
+  handleChangeUsername: PropTypes.func.isRequired,
+  handleLogin: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = createStructuredSelector({
@@ -164,29 +202,32 @@ const mapStateToProps = createStructuredSelector({
   hasLoginError: makeSelectHasLoginError(),
 });
 
-function onCloseLoginModalCreator(dispatch) {
+function handleCloseLoginModalCreator(dispatch) {
   return () => {
     dispatch(closeLoginModal());
+    dispatch(clearLoginError());
   };
 }
 
-function onChangeUsernameCreator(dispatch) {
+function handleChangeUsernameCreator(dispatch) {
   return evt => {
     dispatch(changeUsername({ username: evt.target.value }));
   };
 }
 
-function onClickLoginCreator(dispatch) {
-  return () => {
-    dispatch(login());
+function handleLoginCreator(dispatch) {
+  return evt => {
+    if (evt.keyCode === 13) {
+      dispatch(login());
+    }
   };
 }
 
 function mapDispatchToProps(dispatch) {
   return {
-    onCloseLoginModal: onCloseLoginModalCreator(dispatch),
-    onChangeUsername: onChangeUsernameCreator(dispatch),
-    onClickLogin: onClickLoginCreator(dispatch),
+    handleCloseLoginModal: handleCloseLoginModalCreator(dispatch),
+    handleChangeUsername: handleChangeUsernameCreator(dispatch),
+    handleLogin: handleLoginCreator(dispatch),
   };
 }
 
