@@ -35,8 +35,12 @@ import 'file-loader?name=.htaccess!./.htaccess';
 
 import '!file-loader?name=[name].[ext]!./images/ffl-lineup.png';
 import '!file-loader?name=[name].[ext]!./images/mugshot-ciampi.jpg';
+import '!file-loader?name=[name].[ext]!./images/men-in-wedding-dresses.png';
 import '!file-loader?name=[name].[ext]!./images/mugshot-tim.jpg';
+import '!file-loader?name=[name].[ext]!./images/odd-roz.jpg';
+import '!file-loader?name=[name].[ext]!./images/rings-sully.jpg';
 import '!file-loader?name=[name].[ext]!./images/mugshot-ros.jpg';
+import '!file-loader?name=[name].[ext]!./images/dress-daley-2016-cropped.jpg';
 import '!file-loader?name=[name].[ext]!./images/dress-daley-2015.jpg';
 /* eslint-enable import/no-unresolved, import/extensions */
 

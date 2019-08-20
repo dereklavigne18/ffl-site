@@ -8,8 +8,6 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import Card from '../../components/Card';
-
 const StyledHomePage = styled.div`
   position: relative;
 
@@ -27,64 +25,6 @@ const StyledHomePage = styled.div`
     letter-spacing: 2.25px;
     text-align: center;
     font-size: 50px;
-  }
-
-  & .history-block {
-    background-image: linear-gradient(
-      to right,
-      white 75%,
-      rgba(255, 255, 255, 0) 0%
-    );
-    background-position: top;
-    background-size: 20px 1px;
-    background-repeat: repeat-x;
-
-    & .history-split {
-      display: flex;
-
-      & .history-card {
-        width: 50%;
-        padding-left: 5px;
-        padding-right: 5px;
-        padding-top: 0px;
-        font-family: 'Open Sans';
-
-        & .fa-crown {
-          color: gold;
-        }
-
-        & .fa-female {
-          color: lightblue;
-        }
-
-        & img {
-          width: 100%;
-          height: auto;
-        }
-
-        & h3 {
-          text-align: center;
-          color: #800000;
-          font-size: 24px;
-        }
-
-        & .history-player-outcome {
-          list-style-type: none;
-          padding-left: 10px;
-
-          & li {
-            display: inline-block;
-          }
-        }
-      }
-    }
-
-    & h1 {
-      color: red;
-      font-size: 64px;
-      padding-top: 10px;
-      text-align: center;
-    }
   }
 
   & .ffl-group-pic {
@@ -112,47 +52,97 @@ const StyledHomePage = styled.div`
   }
 `;
 
+const YearTitle = styled.h1`
+  color: red;
+  font-size: 64px;
+  text-align: center;
+`;
+
+const HistorySection = styled.div`
+  width: 100%;
+
+  background-image: linear-gradient(
+    to right,
+    white 75%,
+    rgba(255, 255, 255, 0) 0%
+  );
+  background-position: top;
+  background-size: 20px 1px;
+  background-repeat: repeat-x;
+
+  padding-bottom: 20px;
+`;
+
+const HistoryTable = styled.table`
+  width: 100%;
+`;
+
+const TableCell = styled.td`
+  padding-left: 10px;
+  padding-right: 10px;
+`;
+
+const ImageCell = styled(TableCell)`
+  width: 50%;
+  & img {
+    width: auto;
+    max-width: 100%;
+    max-height: 500px;
+  }
+`;
+
+const HistoryTitle = styled.b`
+  font-family: 'Lobster', cursive;
+  font-size: 40px;
+`;
+
+const ChampTitle = styled(HistoryTitle)`
+  color: #a4d1a2;
+`;
+
+const LoserTitle = styled(HistoryTitle)`
+  color: #f09e71;
+`;
+
 export default function HomePage() {
+  // const historyComponents = historyContent.map(data => (
+  //   <div className="history-block" key={data.year}>
+  //     <h1>{data.year}</h1>
+  //     <div className="history-split">
+  //       <div className="history-card">
+  //         <ChampTitle>Champion</ChampTitle>
+  //         <img src={data.winnerImg} alt="champ" />
+  //       </div>
+  //       <div className="history-card">
+  //         <b>DRAG QUEEN</b>
+  //         <img src={data.loserImg} alt="loser" />
+  //       </div>
+  //     </div>
+  //   </div>
+  // ));
+
   const historyComponents = historyContent.map(data => (
-    <div className="history-block" key={data.year}>
-      <h1>{data.year}</h1>
-      <div className="history-split">
-        <div className="history-card">
-          <Card>
-            <h3>Fame</h3>
-            <ul className="history-player-outcome">
-              <li>
-                <b>CHAMPION:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</b>
-              </li>
-              <li>
-                <i className="fas fa-crown" />
-              </li>
-              <li>
-                <p>&nbsp;&nbsp;{data.winner}</p>
-              </li>
-            </ul>
+    <HistorySection>
+      <YearTitle>{data.year}</YearTitle>
+      <HistoryTable>
+        <tr>
+          <TableCell>
+            <ChampTitle>Champion</ChampTitle>
+          </TableCell>
+          <TableCell>
+            <LoserTitle>Drag Queen</LoserTitle>
+          </TableCell>
+        </tr>
+        <tr>
+          <ImageCell>
             <img src={data.winnerImg} alt="champ" />
-          </Card>
-        </div>
-        <div className="history-card">
-          <Card>
-            <h3>Shame</h3>
-            <ul className="history-player-outcome">
-              <li>
-                <b>DEAD LAST:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</b>
-              </li>
-              <li>
-                <i className="fas fa-female" />
-              </li>
-              <li>
-                <p>&nbsp;&nbsp;{data.loser}</p>
-              </li>
-            </ul>
+          </ImageCell>
+          <ImageCell>
             <img src={data.loserImg} alt="loser" />
-          </Card>
-        </div>
-      </div>
-    </div>
+          </ImageCell>
+        </tr>
+      </HistoryTable>
+    </HistorySection>
   ));
 
   return (
@@ -182,21 +172,21 @@ const historyContent = [
     winner: 'Adam Ciampi',
     loser: 'Andrew Wasko',
     winnerImg: '/mugshot-ciampi.jpg',
-    loserImg: '',
+    loserImg: '/men-in-wedding-dresses.png',
   },
   {
     year: 2017,
     winner: 'Tommy Grip',
     loser: 'Brian Rosinski',
     winnerImg: '/mugshot-tim.jpg',
-    loserImg: '',
+    loserImg: '/odd-roz.jpg',
   },
   {
     year: 2016,
     winner: 'Ryan Sullivan',
     loser: 'Mark Daley',
-    winnerImg: '',
-    loserImg: '',
+    winnerImg: '/rings-sully.jpg',
+    loserImg: '/dress-daley-2016-cropped.jpg',
   },
   {
     year: 2015,
