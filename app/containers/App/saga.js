@@ -1,6 +1,9 @@
-import { call, takeLatest } from 'redux-saga/effects';
-import { request } from 'utils/request';
-import { URL_PATH_LOGOUT, LOGOUT_USER } from 'containers/App/constants';
+import { timePeriodQuery } from 'graphql/queries';
+import { all, call, fork, put, takeLatest } from 'redux-saga/effects';
+import { graphql, request } from 'utils/request';
+
+import { timePeriodsLoaded, timePeriodsLoadedError } from './actions';
+import { URL_PATH_LOGOUT, LOGOUT_USER, LOAD_TIME_PERIODS } from './constants';
 
 export function* doLogout() {
   yield call(request, URL_PATH_LOGOUT, {
@@ -9,13 +12,35 @@ export function* doLogout() {
   });
 }
 
-/**
- * Root saga manages watcher lifecycle
- */
-export default function* logout() {
-  // Watches for LOGIN actions and calls doLogin when one comes in.
-  // By using `takeLatest` only the result of the latest API call is applied.
-  // It returns task descriptor (just like fork) so we can continue execution
-  // It will be cancelled automatically on component unmount
+function* watchLogout() {
   yield takeLatest(LOGOUT_USER, doLogout);
+}
+
+function* getTimePeriods() {
+  try {
+    const timePeriodsResponse = yield call(graphql, timePeriodQuery);
+    if (!timePeriodsResponse.data) {
+      yield put(timePeriodsLoadedError({ error: 'No records returned' }));
+      return;
+    }
+
+    yield put(
+      timePeriodsLoaded({
+        currentWeek: timePeriodsResponse.data.currentWeek,
+        currentYear: timePeriodsResponse.data.currentSeason,
+        seasons: timePeriodsResponse.data.seasons,
+      }),
+    );
+    // yield put(loadStandings()); TODO I NEED TO PUT THIS SOMEWHERE
+  } catch (error) {
+    yield put(timePeriodsLoadedError({ error }));
+  }
+}
+
+function* watchLoadTimePeriods() {
+  yield takeLatest(LOAD_TIME_PERIODS, getTimePeriods);
+}
+
+export default function* rootSaga() {
+  yield all([fork(watchLogout), fork(watchLoadTimePeriods)]);
 }

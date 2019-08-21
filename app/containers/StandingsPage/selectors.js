@@ -1,4 +1,5 @@
 import { createSelector } from 'reselect';
+import selectApp from 'containers/App/selectors';
 import { initialState } from './reducer';
 
 /**
@@ -12,22 +13,18 @@ const makeSelectIsTimelineDrawerOpen = () =>
     state => state.isTimelineDrawerOpen,
   );
 
-const makeSelectSeasons = () =>
-  createSelector(
-    selectStandingsPageDomain,
-    state => state.seasons,
-  );
-
 const makeSelectYear = () =>
   createSelector(
     selectStandingsPageDomain,
-    state => state.year,
+    selectApp,
+    (standingsState, appState) => standingsState.year || appState.currentYear,
   );
 
 const makeSelectWeek = () =>
   createSelector(
     selectStandingsPageDomain,
-    state => state.week,
+    selectApp,
+    (standingsState, appState) => standingsState.week || appState.currentWeek,
   );
 
 const makeSelectStandings = () =>
@@ -39,7 +36,9 @@ const makeSelectStandings = () =>
 const makeSelectIsLoading = () =>
   createSelector(
     selectStandingsPageDomain,
-    state => state.isLoading,
+    selectApp,
+    (standingsState, appState) =>
+      standingsState.isLoading || appState.loadingSeasons,
   );
 
 const makeSelectLoadingError = () =>
@@ -50,7 +49,6 @@ const makeSelectLoadingError = () =>
 
 export {
   makeSelectIsTimelineDrawerOpen,
-  makeSelectSeasons,
   makeSelectYear,
   makeSelectWeek,
   makeSelectStandings,

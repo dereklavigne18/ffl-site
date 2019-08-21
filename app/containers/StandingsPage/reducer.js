@@ -12,9 +12,6 @@ import {
   LOAD_STANDINGS,
   STANDINGS_LOADED,
   STANDINGS_LOADED_ERROR,
-  LOAD_TIME_PERIODS,
-  TIME_PERIODS_LOADED,
-  TIME_PERIODS_LOADED_ERROR,
 } from './constants';
 
 export const initialState = {
@@ -38,19 +35,9 @@ function isTimelineDrawerOpen(state, action) {
   }
 }
 
-function seasons(state, action) {
-  switch (action.type) {
-    case TIME_PERIODS_LOADED:
-      return action.seasons;
-    default:
-      return state;
-  }
-}
-
 function year(state, action) {
   switch (action.type) {
     case CHANGE_YEAR:
-    case TIME_PERIODS_LOADED:
       return action.year;
     default:
       return state;
@@ -60,7 +47,6 @@ function year(state, action) {
 function week(state, action) {
   switch (action.type) {
     case CHANGE_WEEK:
-    case TIME_PERIODS_LOADED:
       return action.week;
     default:
       return state;
@@ -82,12 +68,9 @@ function standings(state, action) {
 function isLoading(state, action) {
   switch (action.type) {
     case LOAD_STANDINGS:
-    case LOAD_TIME_PERIODS:
       return true;
     case STANDINGS_LOADED:
-    case TIME_PERIODS_LOADED:
     case STANDINGS_LOADED_ERROR:
-    case TIME_PERIODS_LOADED_ERROR:
       return false;
     default:
       return state;
@@ -98,11 +81,8 @@ function loadingError(state, action) {
   switch (action.type) {
     case LOAD_STANDINGS:
     case STANDINGS_LOADED:
-    case LOAD_TIME_PERIODS:
-    case TIME_PERIODS_LOADED:
       return null;
     case STANDINGS_LOADED_ERROR:
-    case TIME_PERIODS_LOADED_ERROR:
       return action.error;
     default:
       return state;
@@ -116,7 +96,6 @@ const standingsPageReducer = (state = initialState, action) =>
       draft.isTimelineDrawerOpen,
       action,
     );
-    draft.seasons = seasons(draft.seasons, action);
     draft.year = year(draft.year, action);
     draft.week = week(draft.week, action);
     draft.standings = standings(draft.standings, action);

@@ -16,6 +16,7 @@ import Nav from 'components/Nav/Loadable';
 
 import HomePage from 'containers/HomePage/Loadable';
 import StandingsPage from 'containers/StandingsPage/Loadable';
+import ScoreboardPage from 'containers/ScoreboardPage/Loadable';
 import LoginModal from 'containers/LoginModal/Loadable';
 
 import { createStructuredSelector } from 'reselect';
@@ -64,6 +65,7 @@ export function App({
         <Switch>
           <Route exact path="/" component={HomePage} />
           <Route exact path="/standings" component={StandingsPage} />
+          <Route exact path="/scoreboard" component={ScoreboardPage} />
           <Route component={HomePage} />
         </Switch>
         {isLoginModalOpen ? (
@@ -88,29 +90,11 @@ const mapStateToProps = createStructuredSelector({
   user: makeSelectUser(),
 });
 
-function onOpenLoginModalCreator(dispatch) {
-  return () => {
-    dispatch(openLoginModal());
-  };
-}
-
-function onCloseLoginModalCreator(dispatch) {
-  return () => {
-    dispatch(closeLoginModal());
-  };
-}
-
-function onClickLogoutCreator(dispatch) {
-  return () => {
-    dispatch(logoutUser());
-  };
-}
-
 function mapDispatchToProps(dispatch) {
   return {
-    onOpenLoginModal: onOpenLoginModalCreator(dispatch),
-    onCloseLoginModal: onCloseLoginModalCreator(dispatch),
-    onClickLogout: onClickLogoutCreator(dispatch),
+    onOpenLoginModal: () => dispatch(openLoginModal()),
+    onCloseLoginModal: () => dispatch(closeLoginModal()),
+    onClickLogout: () => dispatch(logoutUser()),
   };
 }
 

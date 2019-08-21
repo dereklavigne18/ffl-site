@@ -1,12 +1,12 @@
 /**
- * TimePeriodController
+ * TimePeriodSettings
  */
 
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import Select from '../../components/Select';
-import Option from '../../components/Select/Option';
+import Select from 'components/Select/Loadable';
+import Option from 'components/Select/Option';
 
 function YearController({ currentYear, years, handleChangeYear }) {
   const options = years.map(year => (
@@ -48,7 +48,7 @@ WeekController.propTypes = {
   handleChangeWeek: PropTypes.func.isRequired,
 };
 
-function TimePeriodController({
+function TimePeriodSettings({
   year,
   week,
   seasons,
@@ -74,7 +74,7 @@ function TimePeriodController({
   );
 }
 
-TimePeriodController.propTypes = {
+TimePeriodSettings.propTypes = {
   year: PropTypes.number.isRequired,
   week: PropTypes.number.isRequired,
   seasons: PropTypes.array.isRequired,
@@ -82,4 +82,4 @@ TimePeriodController.propTypes = {
   handleChangeWeek: PropTypes.func.isRequired,
 };
 
-export default TimePeriodController;
+export default TimePeriodSettings;

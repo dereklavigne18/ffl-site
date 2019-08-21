@@ -122,25 +122,27 @@ export default function HomePage() {
   // ));
 
   const historyComponents = historyContent.map(data => (
-    <HistorySection>
+    <HistorySection key={data.year}>
       <YearTitle>{data.year}</YearTitle>
       <HistoryTable>
-        <tr>
-          <TableCell>
-            <ChampTitle>Champion</ChampTitle>
-          </TableCell>
-          <TableCell>
-            <LoserTitle>Drag Queen</LoserTitle>
-          </TableCell>
-        </tr>
-        <tr>
-          <ImageCell>
-            <img src={data.winnerImg} alt="champ" />
-          </ImageCell>
-          <ImageCell>
-            <img src={data.loserImg} alt="loser" />
-          </ImageCell>
-        </tr>
+        <tbody>
+          <tr>
+            <TableCell>
+              <ChampTitle>Champion</ChampTitle>
+            </TableCell>
+            <TableCell>
+              <LoserTitle>Drag Queen</LoserTitle>
+            </TableCell>
+          </tr>
+          <tr>
+            <ImageCell>
+              <img src={data.winnerImg} alt="champ" />
+            </ImageCell>
+            <ImageCell>
+              <img src={data.loserImg} alt="loser" />
+            </ImageCell>
+          </tr>
+        </tbody>
       </HistoryTable>
     </HistorySection>
   ));

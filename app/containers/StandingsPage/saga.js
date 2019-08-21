@@ -4,17 +4,11 @@
 
 import { call, put, select, takeLatest, fork, all } from 'redux-saga/effects';
 import { graphql } from 'utils/request';
-import { standingsQuery, timePeriodQuery } from 'graphql/queries';
+import { standingsQuery } from 'graphql/queries';
+import { LOAD_STANDINGS } from 'containers/StandingsPage/constants';
 import {
-  LOAD_STANDINGS,
-  LOAD_TIME_PERIODS,
-} from 'containers/StandingsPage/constants';
-import {
-  loadStandings,
   standingsLoaded,
   standingsLoadedError,
-  timePeriodsLoaded,
-  timePeriodsLoadedError,
 } from 'containers/StandingsPage/actions';
 import {
   makeSelectYear,
@@ -56,31 +50,6 @@ function* watchLoadStandings() {
   yield takeLatest(LOAD_STANDINGS, getStandings);
 }
 
-function* getTimePeriods() {
-  try {
-    const timePeriodsResponse = yield call(graphql, timePeriodQuery);
-    if (!timePeriodsResponse.data) {
-      yield put(timePeriodsLoadedError({ error: 'No records returned' }));
-      return;
-    }
-
-    yield put(
-      timePeriodsLoaded({
-        week: timePeriodsResponse.data.currentWeek,
-        year: timePeriodsResponse.data.currentSeason,
-        seasons: timePeriodsResponse.data.seasons,
-      }),
-    );
-    yield put(loadStandings());
-  } catch (error) {
-    yield put(timePeriodsLoadedError({ error }));
-  }
-}
-
-function* watchLoadTimePeriods() {
-  yield takeLatest(LOAD_TIME_PERIODS, getTimePeriods);
-}
-
 export default function* rootSaga() {
-  yield all([fork(watchLoadStandings), fork(watchLoadTimePeriods)]);
+  yield all([fork(watchLoadStandings)]);
 }
