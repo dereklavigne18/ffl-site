@@ -383,9 +383,16 @@ async function getScoreboard({ year, week }) {
   //     },
   //   },
   // ];
+  let calculatedWeek = week;
+  if (week === 0) {
+    calculatedWeek = 13;
+  }
 
   const records = await getRecords({ season: year, week });
-  const boxscores = await getBoxscoresAtSeasonWeek({ season: year, week });
+  const boxscores = await getBoxscoresAtSeasonWeek({
+    season: year,
+    week: calculatedWeek,
+  });
 
   return calculateScoreboard({ records, boxscores });
 }

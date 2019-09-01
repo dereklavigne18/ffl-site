@@ -9,6 +9,7 @@ type Query {
 type Season {
   year: Int!
   weeks: [Int!]!
+  postSeasonWeeks: [Int!]!
 }
 
 type StandingsRecord {

@@ -109,8 +109,13 @@ function calculateTeamRecords({ boxscores, week }) {
 }
 
 async function getRecords({ season, week }) {
+  let calculatedWeek = week;
+  if (week === 0) {
+    calculatedWeek = 14;
+  }
+
   const boxscores = await getAllBoxscores({ season, week });
-  return calculateTeamRecords({ boxscores, week });
+  return calculateTeamRecords({ boxscores, week: calculatedWeek });
 }
 
 module.exports = {

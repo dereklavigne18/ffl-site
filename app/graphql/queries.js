@@ -7,6 +7,7 @@ const timePeriodQuery = gql`
     seasons {
       year
       weeks
+      postSeasonWeeks
     }
   }
 `;
@@ -53,8 +54,8 @@ const matchupQuery = gql`
     }
   }
 
-  query scoreboard {
-    scoreboard(year: 2018, week: 10) {
+  query scoreboard($year: Int!, $week: Int!) {
+    scoreboard(year: $year, week: $week) {
       homeScore {
         ...ScoreboardTeam
       }

@@ -144,8 +144,6 @@ export function ScoreboardPage({
   handleChangeYear,
   handleChangeWeek,
 }) {
-  // TODO Figure out why the records are weird
-
   useInjectReducer({ key: 'scoreboardPage', reducer });
   useInjectSaga({ key: 'scoreboardPage', saga });
 
@@ -153,10 +151,12 @@ export function ScoreboardPage({
   useEffect(() => {
     if (needLoadSeasons) {
       handleInitializeSeasons();
-    } else if (scoreboard.length === 0) {
-      handleLoadScoreboard();
     }
   }, []);
+
+  if (scoreboard.length === 0 && !loadingError) {
+    handleLoadScoreboard();
+  }
 
   const matchupViews = scoreboard.map(matchup => {
     const { homeScore, awayScore } = matchup;
@@ -248,10 +248,7 @@ const mapStateToProps = createStructuredSelector({
 
 function mapDispatchToProps(dispatch) {
   return {
-    handleInitializeSeasons: () => {
-      dispatch(loadTimePeriods());
-      dispatch(loadScoreboard());
-    },
+    handleInitializeSeasons: () => dispatch(loadTimePeriods()),
     handleLoadScoreboard: () => dispatch(loadScoreboard()),
     handleOpenSettingsDrawer: () => dispatch(openSettingsDrawer()),
     handleCloseSettingsDrawer: () => dispatch(closeSettingsDrawer()),

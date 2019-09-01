@@ -73,10 +73,12 @@ export function StandingsPage({
   useEffect(() => {
     if (needLoadSeasons) {
       handleInitializeSeasons();
-    } else if (standings.length === 0) {
-      handleLoadStandings();
     }
   }, []);
+
+  if (standings.length === 0 && !loadingError) {
+    handleLoadStandings();
+  }
 
   let content = <Table rows={standings} columns={columns} />;
   if (isLoading) {
@@ -142,10 +144,7 @@ const mapStateToProps = createStructuredSelector({
 
 function mapDispatchToProps(dispatch) {
   return {
-    handleInitializeSeasons: () => {
-      dispatch(loadTimePeriods());
-      dispatch(loadStandings());
-    },
+    handleInitializeSeasons: () => dispatch(loadTimePeriods()),
     handleLoadStandings: () => dispatch(loadStandings()),
     handleClickOpenTimelineDrawer: () => dispatch(openTimelineDrawer()),
     handleClickCloseTimelineDrawer: () => dispatch(closeTimelineDrawer()),

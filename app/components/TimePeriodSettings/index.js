@@ -28,12 +28,25 @@ YearController.propTypes = {
   handleChangeYear: PropTypes.func.isRequired,
 };
 
-function WeekController({ currentWeek, weeks, handleChangeWeek }) {
+function WeekController({
+  currentWeek,
+  weeks,
+  shouldShowFinal,
+  handleChangeWeek,
+}) {
   const options = weeks.map(week => (
     <Option key={week} value={week}>
       {week.toString()}
     </Option>
   ));
+
+  if (shouldShowFinal) {
+    options.push(
+      <Option key={0} value={0}>
+        Final
+      </Option>,
+    );
+  }
 
   return (
     <Select label="Week" defaultValue={currentWeek} onChange={handleChangeWeek}>
@@ -45,6 +58,7 @@ function WeekController({ currentWeek, weeks, handleChangeWeek }) {
 WeekController.propTypes = {
   currentWeek: PropTypes.number.isRequired,
   weeks: PropTypes.arrayOf(PropTypes.number).isRequired,
+  shouldShowFinal: PropTypes.bool.isRequired,
   handleChangeWeek: PropTypes.func.isRequired,
 };
 
@@ -57,6 +71,7 @@ function TimePeriodSettings({
 }) {
   const season = seasons.find(currentSeason => currentSeason.year === year);
   const years = seasons.map(currentSeason => currentSeason.year);
+  const shouldShowFinal = season.postSeasonWeeks.length > 0;
 
   return (
     <div>
@@ -68,6 +83,7 @@ function TimePeriodSettings({
       <WeekController
         weeks={season.weeks}
         currentWeek={week}
+        shouldShowFinal={shouldShowFinal}
         handleChangeWeek={handleChangeWeek}
       />
     </div>

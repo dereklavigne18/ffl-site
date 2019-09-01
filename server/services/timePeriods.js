@@ -3,6 +3,7 @@ const { range } = require('../polyfills');
 const SEPTEMBER = 8;
 const WEDNESDAY = 3;
 const LAST_WEEK_OF_SEASON = 13;
+const LAST_WEEK_OF_POST_SEASON = 16;
 const FIRST_SEASON = 2018;
 
 function dayAfter(date) {
@@ -32,10 +33,33 @@ function firstWedInSeptember(year) {
   return firstWedAfterDate(new Date(year, SEPTEMBER, 1));
 }
 
-function getCurrentWeek() {
+function getHighestWeek() {
   const diff = new Date() - firstWedInSeptember(getCurrentSeason());
   const weekDiff = Math.floor(diff / (1000 * 60 * 60 * 24 * 7));
   return weekDiff > LAST_WEEK_OF_SEASON ? LAST_WEEK_OF_SEASON : weekDiff;
+}
+
+function getCurrentWeek() {
+  if (getCurrentPostSeasonWeek() !== 0) {
+    return 0;
+  }
+
+  return getHighestWeek();
+}
+
+function getCurrentPostSeasonWeek() {
+  const diff = new Date() - firstWedInSeptember(getCurrentSeason());
+  const weekDiff = Math.floor(diff / (1000 * 60 * 60 * 24 * 7));
+
+  if (weekDiff > LAST_WEEK_OF_POST_SEASON) {
+    return LAST_WEEK_OF_POST_SEASON;
+  }
+
+  if (weekDiff < LAST_WEEK_OF_SEASON + 1) {
+    return 0;
+  }
+
+  return weekDiff;
 }
 
 function getCurrentSeason() {
@@ -53,7 +77,11 @@ function getSeasons() {
     weeks:
       season !== currentSeason
         ? range(1, LAST_WEEK_OF_SEASON + 1)
-        : range(1, getCurrentWeek() + 1),
+        : range(1, getHighestWeek() + 1),
+    postSeasonWeeks:
+      season !== currentSeason
+        ? range(14, LAST_WEEK_OF_POST_SEASON + 1)
+        : range(14, getCurrentPostSeasonWeek() + 1),
   }));
 }
 

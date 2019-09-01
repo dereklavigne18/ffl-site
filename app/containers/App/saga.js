@@ -31,7 +31,6 @@ function* getTimePeriods() {
         seasons: timePeriodsResponse.data.seasons,
       }),
     );
-    // yield put(loadStandings()); TODO I NEED TO PUT THIS SOMEWHERE
   } catch (error) {
     yield put(timePeriodsLoadedError({ error }));
   }
