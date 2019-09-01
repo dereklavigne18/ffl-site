@@ -16,7 +16,6 @@ import {
 
 export const initialState = {
   isTimelineDrawerOpen: false,
-  seasons: [],
   year: null,
   week: null,
   standings: [],

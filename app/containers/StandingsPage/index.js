@@ -20,15 +20,12 @@ import {
   makeSelectNeedLoadSeasons,
 } from 'containers/App/selectors';
 
-import {
-  openTimelineDrawer,
-  closeTimelineDrawer,
-  changeYear,
-  changeWeek,
-  loadStandings,
-} from 'containers/StandingsPage/actions';
-import reducer from 'containers/StandingsPage/reducer';
-import saga from 'containers/StandingsPage/saga';
+import Drawer from 'components/Drawer/Loadable';
+import Oops from 'components/Oops/Loadable';
+import Spinner from 'components/Spinner/Loadable';
+import Table from 'components/Table/Loadable';
+import TimePeriodSettings from 'components/TimePeriodSettings/Loadable';
+
 import {
   makeSelectIsTimelineDrawerOpen,
   makeSelectWeek,
@@ -36,13 +33,16 @@ import {
   makeSelectStandings,
   makeSelectIsLoading,
   makeSelectLoadingError,
-} from 'containers/StandingsPage/selectors';
-
-import Drawer from 'components/Drawer/Loadable';
-import Oops from 'components/Oops/Loadable';
-import Spinner from 'components/Spinner/Loadable';
-import Table from 'components/Table/Loadable';
-import TimePeriodSettings from 'components/TimePeriodSettings/Loadable';
+} from './selectors';
+import saga from './saga';
+import {
+  openTimelineDrawer,
+  closeTimelineDrawer,
+  changeYear,
+  changeWeek,
+  loadStandings,
+} from './actions';
+import reducer from './reducer';
 
 const TimePeriodInputWrapper = styled.div`
   & div {
@@ -60,6 +60,7 @@ export function StandingsPage({
   isLoading,
   loadingError,
   handleInitializeSeasons,
+  handleLoadStandings,
   handleChangeYear,
   handleChangeWeek,
   handleClickOpenTimelineDrawer,
@@ -72,6 +73,8 @@ export function StandingsPage({
   useEffect(() => {
     if (needLoadSeasons) {
       handleInitializeSeasons();
+    } else if (standings.length === 0) {
+      handleLoadStandings();
     }
   }, []);
 
@@ -119,6 +122,7 @@ StandingsPage.propTypes = {
   isLoading: PropTypes.bool,
   loadingError: PropTypes.string,
   handleInitializeSeasons: PropTypes.func.isRequired,
+  handleLoadStandings: PropTypes.func.isRequired,
   handleChangeYear: PropTypes.func.isRequired,
   handleChangeWeek: PropTypes.func.isRequired,
   handleClickOpenTimelineDrawer: PropTypes.func.isRequired,
@@ -142,6 +146,7 @@ function mapDispatchToProps(dispatch) {
       dispatch(loadTimePeriods());
       dispatch(loadStandings());
     },
+    handleLoadStandings: () => dispatch(loadStandings()),
     handleClickOpenTimelineDrawer: () => dispatch(openTimelineDrawer()),
     handleClickCloseTimelineDrawer: () => dispatch(closeTimelineDrawer()),
     handleChangeYear: evt => {

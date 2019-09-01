@@ -157,19 +157,23 @@ async function getAllBoxscores({ season, week }) {
   const espnTeams = await getEspnTeams({ season, week });
   const yahooTeams = await getYahooTeams({ season, week });
 
-  const result = calculateBoxscores({
+  return calculateBoxscores({
     espnBoxscores,
     yahooBoxscores,
     espnTeams,
     yahooTeams,
     season,
   });
+}
 
-  return result;
+async function getBoxscoresAtSeasonWeek({ season, week }) {
+  const boxscores = await getAllBoxscores({ season, week });
+  return boxscores[week];
 }
 
 module.exports = {
   getAllBoxscores,
+  getBoxscoresAtSeasonWeek,
 };
 
 const interleagueMatchups = {

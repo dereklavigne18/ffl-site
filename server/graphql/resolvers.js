@@ -1,4 +1,5 @@
 const standings = require('../services/standings');
+const scoreboard = require('../services/scoreboard');
 const {
   getCurrentWeek,
   getCurrentSeason,
@@ -10,6 +11,7 @@ module.exports = {
     currentWeek: getCurrentWeek,
     currentSeason: getCurrentSeason,
     seasons: getSeasons,
+    scoreboard: async (obj, args) => scoreboard.getScoreboard({ ...args }),
     standings: async (obj, args) => ({
       seasonWeek: {
         year: args.year,
