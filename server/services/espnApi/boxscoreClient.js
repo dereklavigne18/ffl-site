@@ -1,4 +1,5 @@
 const { getEspnLeagueClient, getYahooLeagueClient } = require('./espnClient');
+const { getSet } = require('../../cache');
 const logger = require('../../logger');
 
 function constructTeamScore(teamScore) {
@@ -68,7 +69,12 @@ async function fetchBoxscores({ client, season, week }) {
  * @returns {Promise<*>}
  */
 async function fetchEspnBoxscores({ season, week }) {
-  return fetchBoxscores({ client: getEspnLeagueClient(), season, week });
+  return getSet({
+    key: `fetchEspnBoxscores.${season}.${week}`,
+    ttl: 60 * 60,
+    loader: async () =>
+      fetchBoxscores({ client: getEspnLeagueClient(), season, week }),
+  });
 }
 
 /**
@@ -79,7 +85,12 @@ async function fetchEspnBoxscores({ season, week }) {
  * @returns {Promise<*>}
  */
 async function fetchYahooBoxscores({ season, week }) {
-  return fetchBoxscores({ client: getYahooLeagueClient(), season, week });
+  return getSet({
+    key: `fetchYahooBoxscores.${season}.${week}`,
+    ttl: 60 * 60,
+    loader: async () =>
+      fetchBoxscores({ client: getYahooLeagueClient(), season, week }),
+  });
 }
 
 module.exports = {

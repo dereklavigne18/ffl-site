@@ -150,7 +150,6 @@ function calculateBoxscores({
 // }
 
 async function getAllBoxscores({ season, week }) {
-  // TODO Add caching layer and maybe live load
   const espnBoxscores = await fetchEspnBoxscores({ season, week });
   const yahooBoxscores = await fetchYahooBoxscores({ season, week });
 

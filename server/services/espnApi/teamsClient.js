@@ -1,4 +1,5 @@
 const { getYahooLeagueClient, getEspnLeagueClient } = require('./espnClient');
+const { getSet } = require('../../cache');
 const logger = require('../../logger');
 
 function constructTeam(teamData) {
@@ -44,26 +45,22 @@ async function fetchTeams({ client, season, week }) {
 // }
 
 async function fetchEspnTeams({ season, week }) {
-  return fetchTeams({ client: getEspnLeagueClient(), season, week });
+  return getSet({
+    key: `fetchEspnTeams.${season}.${week}`,
+    ttl: 60 * 60 * 24,
+    loader: async () =>
+      fetchTeams({ client: getEspnLeagueClient(), season, week }),
+  });
 }
 
 async function fetchYahooTeams({ season, week }) {
-  return fetchTeams({ client: getYahooLeagueClient(), season, week });
+  return getSet({
+    key: `fetchYahooTeams.${season}.${week}`,
+    ttl: 60 * 60 * 24,
+    loader: async () =>
+      fetchTeams({ client: getYahooLeagueClient(), season, week }),
+  });
 }
-
-// /**
-//  * Load all teams from the ESPN API (for a given week) and build Team objects from them
-//  *
-//  * @param season
-//  * @param week
-//  * @returns [Team]
-//  */
-// async function fetchAllTeams({ season, week }) {
-//   const espnTeams = []; // await fetchEspnTeams({ season, week }); // TODO gotta update to get espn clients to work
-//   const yahooTeams = await fetchYahooTeams({ season, week });
-//
-//   return espnTeams.concat(yahooTeams);
-// }
 
 module.exports = {
   fetchYahooTeams,

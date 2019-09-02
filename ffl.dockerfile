@@ -1,6 +1,6 @@
 FROM node:latest
 
-COPY docker /app/
+COPY . /app/
 WORKDIR /app
 
 RUN npm install
