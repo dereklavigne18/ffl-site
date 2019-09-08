@@ -2,7 +2,7 @@
  * Request utils
  */
 
-const GRAPHQL_URL = 'http://localhost:3000/graphql';
+const GRAPHQL_URL = '/graphql';
 
 /**
  * Parses the the response using the content provided in the content-type header

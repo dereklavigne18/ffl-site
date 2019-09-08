@@ -36,7 +36,15 @@ function firstWedInSeptember(year) {
 function getHighestWeek() {
   const diff = new Date() - firstWedInSeptember(getCurrentSeason());
   const weekDiff = Math.floor(diff / (1000 * 60 * 60 * 24 * 7));
-  return weekDiff > LAST_WEEK_OF_SEASON ? LAST_WEEK_OF_SEASON : weekDiff;
+
+  if (weekDiff > LAST_WEEK_OF_SEASON) {
+    return LAST_WEEK_OF_SEASON;
+  }
+  if (weekDiff < 1) {
+    return 1;
+  }
+
+  return weekDiff;
 }
 
 function getCurrentWeek() {

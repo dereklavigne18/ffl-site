@@ -9,4 +9,4 @@ export const TIME_PERIODS_LOADED = 'app/StandingsPage/TIME_PERIODS_LOADED';
 export const TIME_PERIODS_LOADED_ERROR =
   'app/StandingsPage/TIME_PERIODS_LOADED_ERROR';
 
-export const URL_PATH_LOGOUT = 'http://localhost:3000/logout';
+export const URL_PATH_LOGOUT = '/logout';

@@ -119,4 +119,24 @@ const users = {
     username: 'Apouli',
     name: 'Alek Pouliopoulos',
   },
+  '{9D99F353-907A-43E0-BBF9-3168C5F7CC68}': {
+    id: '{9D99F353-907A-43E0-BBF9-3168C5F7CC68}',
+    username: 'cmckenna316',
+    name: 'Colin Mckenna',
+  },
+  '{C1B33940-6DA2-47CC-9F93-D1911905B52A}': {
+    id: '{C1B33940-6DA2-47CC-9F93-D1911905B52A}',
+    username: 'ESPNfan7484971753',
+    name: 'Ed Loftus',
+  },
+  '{160B1238-CE90-41BD-B095-8FEBBEF97828}': {
+    id: '{160B1238-CE90-41BD-B095-8FEBBEF97828}',
+    username: 'rgrip95',
+    name: 'Robert Grip',
+  },
+  '{55B882B9-2C00-41B7-99A7-06A934BEA170}': {
+    id: '{55B882B9-2C00-41B7-99A7-06A934BEA170}',
+    username: 'C0bblestone',
+    name: 'Ryan Cobb',
+  },
 };

@@ -15,8 +15,6 @@ Promise.promisifyAll(cache);
 async function getSet({ key, loader, ttl }) {
   if (await cache.existsAsync(key)) {
     const found = await cache.getAsync(key);
-    console.log(`Getting ${key}`, found);
-
     return JSON.parse(found);
   }
 
