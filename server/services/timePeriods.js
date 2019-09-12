@@ -1,7 +1,7 @@
 const { range } = require('../polyfills');
 
 const SEPTEMBER = 8;
-const WEDNESDAY = 3;
+const FIRST_DAY_OF_WEEK = 2;
 const LAST_WEEK_OF_SEASON = 13;
 const LAST_WEEK_OF_POST_SEASON = 16;
 const FIRST_SEASON = 2018;
@@ -13,12 +13,12 @@ function dayAfter(date) {
   return nextDay;
 }
 
-function firstWedAfterDate(date) {
+function firstTuesAfterDate(date) {
   let daysCheckedCount = 0;
   const dateToCheck = date;
 
   while (daysCheckedCount < 8) {
-    if (dateToCheck.getDay() === WEDNESDAY) {
+    if (dateToCheck.getDay() === FIRST_DAY_OF_WEEK) {
       return dateToCheck;
     }
 
@@ -26,16 +26,16 @@ function firstWedAfterDate(date) {
     daysCheckedCount += 1;
   }
 
-  throw new Error('Could not find a Wednesday.');
+  throw new Error('Could not find start of season.');
 }
 
-function firstWedInSeptember(year) {
-  return firstWedAfterDate(new Date(year, SEPTEMBER, 1));
+function startOfSeason(year) {
+  return firstTuesAfterDate(new Date(year, SEPTEMBER, 1));
 }
 
 function getHighestWeek() {
-  const diff = new Date() - firstWedInSeptember(getCurrentSeason());
-  const weekDiff = Math.floor(diff / (1000 * 60 * 60 * 24 * 7));
+  const diff = new Date() - startOfSeason(getCurrentSeason());
+  const weekDiff = Math.ceil(diff / (1000 * 60 * 60 * 24 * 7));
 
   if (weekDiff > LAST_WEEK_OF_SEASON) {
     return LAST_WEEK_OF_SEASON;
@@ -56,7 +56,7 @@ function getCurrentWeek() {
 }
 
 function getCurrentPostSeasonWeek() {
-  const diff = new Date() - firstWedInSeptember(getCurrentSeason());
+  const diff = new Date() - startOfSeason(getCurrentSeason());
   const weekDiff = Math.floor(diff / (1000 * 60 * 60 * 24 * 7));
 
   if (weekDiff > LAST_WEEK_OF_POST_SEASON) {
@@ -73,7 +73,7 @@ function getCurrentPostSeasonWeek() {
 function getCurrentSeason() {
   const now = new Date();
   const currentYear = now.getFullYear();
-  const seasonStartDate = firstWedInSeptember(currentYear);
+  const seasonStartDate = startOfSeason(currentYear);
 
   return now < seasonStartDate ? currentYear - 1 : currentYear;
 }
