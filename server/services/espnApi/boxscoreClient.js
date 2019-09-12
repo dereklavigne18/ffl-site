@@ -5,7 +5,7 @@ const logger = require('../../logger');
 function constructTeamScore(teamScore) {
   return {
     teamId: teamScore.teamId,
-    points: +teamScore.totalPoints.toFixed(2),
+    points: +teamScore.totalPoints.toFixed(1),
   };
 }
 
