@@ -23,7 +23,10 @@ const makeSelectWeek = () =>
   createSelector(
     selectScoreboardPageDomain,
     selectApp,
-    (scoreboardState, appState) => scoreboardState.week || appState.currentWeek,
+    (scoreboardState, appState) =>
+      scoreboardState.week !== null
+        ? scoreboardState.week
+        : appState.currentWeek,
   );
 
 const makeSelectScoreboard = () =>

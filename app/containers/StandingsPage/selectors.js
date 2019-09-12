@@ -24,7 +24,8 @@ const makeSelectWeek = () =>
   createSelector(
     selectStandingsPageDomain,
     selectApp,
-    (standingsState, appState) => standingsState.week || appState.currentWeek,
+    (standingsState, appState) =>
+      standingsState.week !== null ? standingsState.week : appState.currentWeek,
   );
 
 const makeSelectStandings = () =>

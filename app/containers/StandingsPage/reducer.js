@@ -47,6 +47,8 @@ function week(state, action) {
   switch (action.type) {
     case CHANGE_WEEK:
       return action.week;
+    case CHANGE_YEAR:
+      return 1;
     default:
       return state;
   }
