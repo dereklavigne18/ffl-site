@@ -174,7 +174,7 @@ const historyContent = [
     winner: 'Adam Ciampi',
     loser: 'Andrew Wasko',
     winnerImg: '/mugshot-ciampi.jpg',
-    loserImg: '/men-in-wedding-dresses.png',
+    loserImg: '/dress-mac-2018.jpg',
   },
   {
     year: 2017,

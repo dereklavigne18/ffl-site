@@ -35,7 +35,7 @@ import 'file-loader?name=.htaccess!./.htaccess';
 
 import '!file-loader?name=[name].[ext]!./images/ffl-lineup.png';
 import '!file-loader?name=[name].[ext]!./images/mugshot-ciampi.jpg';
-import '!file-loader?name=[name].[ext]!./images/men-in-wedding-dresses.png';
+import '!file-loader?name=[name].[ext]!./images/dress-mac-2018.jpg';
 import '!file-loader?name=[name].[ext]!./images/mugshot-tim.jpg';
 import '!file-loader?name=[name].[ext]!./images/odd-roz.jpg';
 import '!file-loader?name=[name].[ext]!./images/rings-sully.jpg';
