@@ -3,11 +3,23 @@
 version: '3.7'
 
 services:
+
   ffl:
     build:
       context: .
-      dockerfile: ffl.dockerfile
+      dockerfile: docker/ffl.dockerfile
     links:
       - redis
+
+  ffl-dev:
+    build:
+      context: .
+      dockerfile: docker/ffl.dockerfile
+    command: npm run start
+    links:
+      - redis
+    volumes:
+      - .:/app:rw
+
   redis:
     image: redis:5.0.5
