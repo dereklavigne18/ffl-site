@@ -152,11 +152,11 @@ export function ScoreboardPage({
     if (needLoadSeasons) {
       handleInitializeSeasons();
     }
-  }, []);
 
-  if (scoreboard.length === 0 && !loadingError) {
-    handleLoadScoreboard();
-  }
+    if (scoreboard.length === 0 && !loadingError) {
+      handleLoadScoreboard();
+    }
+  }, []);
 
   const matchupViews = scoreboard.map(matchup => {
     const { homeScore, awayScore } = matchup;

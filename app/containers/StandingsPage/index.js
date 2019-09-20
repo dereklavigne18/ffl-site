@@ -74,11 +74,11 @@ export function StandingsPage({
     if (needLoadSeasons) {
       handleInitializeSeasons();
     }
-  }, []);
 
-  if (standings.length === 0 && !loadingError) {
-    handleLoadStandings();
-  }
+    if (standings.length === 0 && !loadingError) {
+      handleLoadStandings();
+    }
+  }, []);
 
   let content = <Table rows={standings} columns={columns} />;
   if (isLoading) {
