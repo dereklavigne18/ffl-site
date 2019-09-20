@@ -5,8 +5,15 @@ import { matchupQuery } from 'graphql/queries';
 import { scoreboardLoaded, scoreboardLoadedError } from './actions';
 import { LOAD_SCOREBOARD } from './constants';
 import { makeSelectYear, makeSelectWeek } from './selectors';
+import { makeSelectNeedLoadSeasons } from '../App/selectors';
+import { getTimePeriods } from '../App/saga';
 
 function* getScoreboard() {
+  const needLoadSeasons = yield makeSelectNeedLoadSeasons();
+  if (needLoadSeasons) {
+    yield getTimePeriods();
+  }
+
   const year = yield select(makeSelectYear());
   const week = yield select(makeSelectWeek());
 

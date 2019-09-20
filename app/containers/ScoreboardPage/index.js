@@ -17,8 +17,7 @@ import { useInjectReducer } from '../../utils/injectReducer';
 import Drawer from '../../components/Drawer/Loadable';
 import TimePeriodSettings from '../../components/TimePeriodSettings/Loadable';
 
-import { loadTimePeriods } from '../App/actions';
-import { makeSelectSeasons, makeSelectNeedLoadSeasons } from '../App/selectors';
+import { makeSelectSeasons } from '../App/selectors';
 
 import {
   openSettingsDrawer,
@@ -129,7 +128,6 @@ const AwayScoreBox = styled(ScoreBox)`
 `;
 
 export function ScoreboardPage({
-  needLoadSeasons,
   isSettingsDrawerOpen,
   seasons,
   year,
@@ -137,7 +135,6 @@ export function ScoreboardPage({
   scoreboard,
   isLoading,
   loadingError,
-  handleInitializeSeasons,
   handleLoadScoreboard,
   handleOpenSettingsDrawer,
   handleCloseSettingsDrawer,
@@ -149,19 +146,16 @@ export function ScoreboardPage({
 
   // On initial render, get and set the current time period
   useEffect(() => {
-    if (needLoadSeasons) {
-      handleInitializeSeasons();
-    }
-
     if (scoreboard.length === 0 && !loadingError) {
       handleLoadScoreboard();
     }
   }, []);
 
-  const matchupViews = scoreboard.map(matchup => {
+  const matchupViews = scoreboard.map((matchup, i) => {
     const { homeScore, awayScore } = matchup;
     return (
-      <tr>
+      // eslint-disable-next-line react/no-array-index-key
+      <tr key={i}>
         <HomeTeamInfo>
           <p>{homeScore.ownerName}</p>
           <p>{homeScore.record}</p>
@@ -219,7 +213,6 @@ export function ScoreboardPage({
 }
 
 ScoreboardPage.propTypes = {
-  needLoadSeasons: PropTypes.bool.isRequired,
   isSettingsDrawerOpen: PropTypes.bool.isRequired,
   year: PropTypes.number.isRequired,
   week: PropTypes.number.isRequired,
@@ -227,7 +220,6 @@ ScoreboardPage.propTypes = {
   scoreboard: PropTypes.array,
   isLoading: PropTypes.bool,
   loadingError: PropTypes.bool,
-  handleInitializeSeasons: PropTypes.func.isRequired,
   handleLoadScoreboard: PropTypes.func.isRequired,
   handleOpenSettingsDrawer: PropTypes.func.isRequired,
   handleCloseSettingsDrawer: PropTypes.func.isRequired,
@@ -236,7 +228,6 @@ ScoreboardPage.propTypes = {
 };
 
 const mapStateToProps = createStructuredSelector({
-  needLoadSeasons: makeSelectNeedLoadSeasons(),
   isSettingsDrawerOpen: makeSelectIsSettingsDrawerOpen(),
   year: makeSelectYear(),
   week: makeSelectWeek(),
@@ -248,7 +239,6 @@ const mapStateToProps = createStructuredSelector({
 
 function mapDispatchToProps(dispatch) {
   return {
-    handleInitializeSeasons: () => dispatch(loadTimePeriods()),
     handleLoadScoreboard: () => dispatch(loadScoreboard()),
     handleOpenSettingsDrawer: () => dispatch(openSettingsDrawer()),
     handleCloseSettingsDrawer: () => dispatch(closeSettingsDrawer()),

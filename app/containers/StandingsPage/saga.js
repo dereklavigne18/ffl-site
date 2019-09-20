@@ -15,7 +15,15 @@ import {
   makeSelectWeek,
 } from 'containers/StandingsPage/selectors';
 
+import { makeSelectNeedLoadSeasons } from '../App/selectors';
+import { getTimePeriods } from '../App/saga';
+
 function* getStandings() {
+  const needLoadSeasons = yield makeSelectNeedLoadSeasons();
+  if (needLoadSeasons) {
+    yield getTimePeriods();
+  }
+
   const year = yield select(makeSelectYear());
   const week = yield select(makeSelectWeek());
 

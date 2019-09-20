@@ -14,11 +14,7 @@ import { compose } from 'redux';
 import { useInjectSaga } from 'utils/injectSaga';
 import { useInjectReducer } from 'utils/injectReducer';
 
-import { loadTimePeriods } from 'containers/App/actions';
-import {
-  makeSelectSeasons,
-  makeSelectNeedLoadSeasons,
-} from 'containers/App/selectors';
+import { makeSelectSeasons } from 'containers/App/selectors';
 
 import Drawer from 'components/Drawer/Loadable';
 import Oops from 'components/Oops/Loadable';
@@ -51,7 +47,6 @@ const TimePeriodInputWrapper = styled.div`
 `;
 
 export function StandingsPage({
-  needLoadSeasons,
   isTimelineDrawerOpen,
   seasons,
   year,
@@ -59,7 +54,6 @@ export function StandingsPage({
   standings,
   isLoading,
   loadingError,
-  handleInitializeSeasons,
   handleLoadStandings,
   handleChangeYear,
   handleChangeWeek,
@@ -71,10 +65,6 @@ export function StandingsPage({
 
   // On initial render, get and set the current time period
   useEffect(() => {
-    if (needLoadSeasons) {
-      handleInitializeSeasons();
-    }
-
     if (standings.length === 0 && !loadingError) {
       handleLoadStandings();
     }
@@ -115,7 +105,6 @@ export function StandingsPage({
 }
 
 StandingsPage.propTypes = {
-  needLoadSeasons: PropTypes.bool.isRequired,
   isTimelineDrawerOpen: PropTypes.bool.isRequired,
   seasons: PropTypes.array,
   year: PropTypes.number,
@@ -123,7 +112,6 @@ StandingsPage.propTypes = {
   standings: PropTypes.array,
   isLoading: PropTypes.bool,
   loadingError: PropTypes.string,
-  handleInitializeSeasons: PropTypes.func.isRequired,
   handleLoadStandings: PropTypes.func.isRequired,
   handleChangeYear: PropTypes.func.isRequired,
   handleChangeWeek: PropTypes.func.isRequired,
@@ -132,7 +120,6 @@ StandingsPage.propTypes = {
 };
 
 const mapStateToProps = createStructuredSelector({
-  needLoadSeasons: makeSelectNeedLoadSeasons(),
   isTimelineDrawerOpen: makeSelectIsTimelineDrawerOpen(),
   seasons: makeSelectSeasons(),
   year: makeSelectYear(),
@@ -144,7 +131,6 @@ const mapStateToProps = createStructuredSelector({
 
 function mapDispatchToProps(dispatch) {
   return {
-    handleInitializeSeasons: () => dispatch(loadTimePeriods()),
     handleLoadStandings: () => dispatch(loadStandings()),
     handleClickOpenTimelineDrawer: () => dispatch(openTimelineDrawer()),
     handleClickCloseTimelineDrawer: () => dispatch(closeTimelineDrawer()),

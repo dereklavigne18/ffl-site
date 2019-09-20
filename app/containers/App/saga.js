@@ -16,7 +16,7 @@ function* watchLogout() {
   yield takeLatest(LOGOUT_USER, doLogout);
 }
 
-function* getTimePeriods() {
+export function* getTimePeriods() {
   try {
     const timePeriodsResponse = yield call(graphql, timePeriodQuery);
     if (!timePeriodsResponse.data) {

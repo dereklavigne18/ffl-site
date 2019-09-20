@@ -181,7 +181,7 @@ const historyContent = [
     winner: 'Tommy Grip',
     loser: 'Brian Rosinski',
     winnerImg: '/mugshot-tim.jpg',
-    loserImg: '/odd-roz.jpg',
+    loserImg: '/dress-roz-2017.jpg',
   },
   {
     year: 2016,
