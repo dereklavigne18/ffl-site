@@ -17,16 +17,23 @@ function addTeamsToBoxscore(boxscore, teams) {
   // Interleague weeks don't have away scores, so we can ignore them here
   let away = null;
   if (boxscore.away) {
+    const tmpAway = boxscore.away;
+    const awayPoints =
+      tmpAway.pointsLive > tmpAway.points ? tmpAway.pointsLive : tmpAway.points;
     away = {
-      points: boxscore.away.points,
-      team: teams[boxscore.away.teamId],
+      points: awayPoints,
+      team: teams[tmpAway.teamId],
     };
   }
 
+  const tmpHome = boxscore.home;
+  const homePoints =
+    tmpHome.pointsLive > tmpHome.points ? tmpHome.pointsLive : tmpHome.points;
+
   return {
     home: {
-      points: boxscore.home.points,
-      team: teams[boxscore.home.teamId],
+      points: homePoints,
+      team: teams[tmpHome.teamId],
     },
     away,
   };

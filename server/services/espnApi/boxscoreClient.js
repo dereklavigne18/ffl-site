@@ -3,9 +3,15 @@ const { getSet } = require('../../cache');
 const logger = require('../../logger');
 
 function constructTeamScore(teamScore) {
+  let pointsLive = 0;
+  if (teamScore.totalPointsLive) {
+    pointsLive = +teamScore.totalPointsLive.toFixed(1);
+  }
+
   return {
     teamId: teamScore.teamId,
     points: +teamScore.totalPoints.toFixed(1),
+    pointsLive,
   };
 }
 
