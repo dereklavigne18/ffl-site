@@ -30,6 +30,11 @@ function firstTuesAfterDate(date) {
 }
 
 function startOfSeason(year) {
+  if (year === 2020) {
+    // 2020 started a week later, stupid COVID
+    return firstTuesAfterDate(new Date(year, SEPTEMBER, 7));
+  }
+
   return firstTuesAfterDate(new Date(year, SEPTEMBER, 1));
 }
 
