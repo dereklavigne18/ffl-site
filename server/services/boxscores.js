@@ -863,4 +863,174 @@ const interleagueMatchups = {
       },
     ],
   },
+  2020: {
+    3: [
+      {
+        yahooTeamId: 1,
+        espnTeamId: 5,
+      },
+      {
+        yahooTeamId: 3,
+        espnTeamId: 9,
+      },
+      {
+        yahooTeamId: 5,
+        espnTeamId: 1,
+      },
+      {
+        yahooTeamId: 8,
+        espnTeamId: 8,
+      },
+      {
+        yahooTeamId: 2,
+        espnTeamId: 7,
+      },
+      {
+        yahooTeamId: 4,
+        espnTeamId: 6,
+      },
+      {
+        yahooTeamId: 6,
+        espnTeamId: 10,
+      },
+      {
+        yahooTeamId: 7,
+        espnTeamId: 2,
+      },
+      {
+        yahooTeamId: 10,
+        espnTeamId: 3,
+      },
+      {
+        yahooTeamId: 11,
+        espnTeamId: 4,
+      },
+    ],
+    6: [
+      {
+        yahooTeamId: 1,
+        espnTeamId: 9,
+      },
+      {
+        yahooTeamId: 3,
+        espnTeamId: 5,
+      },
+      {
+        yahooTeamId: 5,
+        espnTeamId: 8,
+      },
+      {
+        yahooTeamId: 8,
+        espnTeamId: 1,
+      },
+      {
+        yahooTeamId: 2,
+        espnTeamId: 6,
+      },
+      {
+        yahooTeamId: 4,
+        espnTeamId: 7,
+      },
+      {
+        yahooTeamId: 6,
+        espnTeamId: 2,
+      },
+      {
+        yahooTeamId: 7,
+        espnTeamId: 10,
+      },
+      {
+        yahooTeamId: 10,
+        espnTeamId: 4,
+      },
+      {
+        yahooTeamId: 11,
+        espnTeamId: 3,
+      },
+    ],
+    9: [
+      {
+        yahooTeamId: 1,
+        espnTeamId: 1,
+      },
+      {
+        yahooTeamId: 3,
+        espnTeamId: 8,
+      },
+      {
+        yahooTeamId: 5,
+        espnTeamId: 7,
+      },
+      {
+        yahooTeamId: 8,
+        espnTeamId: 6,
+      },
+      {
+        yahooTeamId: 2,
+        espnTeamId: 10,
+      },
+      {
+        yahooTeamId: 4,
+        espnTeamId: 2,
+      },
+      {
+        yahooTeamId: 6,
+        espnTeamId: 3,
+      },
+      {
+        yahooTeamId: 7,
+        espnTeamId: 4,
+      },
+      {
+        yahooTeamId: 10,
+        espnTeamId: 5,
+      },
+      {
+        yahooTeamId: 11,
+        espnTeamId: 9,
+      },
+    ],
+    12: [
+      {
+        yahooTeamId: 1,
+        espnTeamId: 8,
+      },
+      {
+        yahooTeamId: 3,
+        espnTeamId: 1,
+      },
+      {
+        yahooTeamId: 5,
+        espnTeamId: 6,
+      },
+      {
+        yahooTeamId: 8,
+        espnTeamId: 7,
+      },
+      {
+        yahooTeamId: 2,
+        espnTeamId: 2,
+      },
+      {
+        yahooTeamId: 4,
+        espnTeamId: 10,
+      },
+      {
+        yahooTeamId: 6,
+        espnTeamId: 4,
+      },
+      {
+        yahooTeamId: 7,
+        espnTeamId: 3,
+      },
+      {
+        yahooTeamId: 10,
+        espnTeamId: 9,
+      },
+      {
+        yahooTeamId: 11,
+        espnTeamId: 5,
+      },
+    ],
+  },
 };
